@@ -3,6 +3,9 @@ import os
 projectFolder = os.path.dirname(__file__)
 
 buildRoot = os.path.join(projectFolder, "dist/GlyphsPythonModul.glyphsPlugin")
+import sys
+sys.argv = ['setup.py', 'py2app', '--includes', 'objc,AppKit,distutils.version,timeit,cProfile,WebKit']
+exec(open("./setup.py").read(), globals())
 #os.system("python3 setup.py py2app --includes objc,AppKit,distutils.version,timeit,cProfile")
 
 for (dirpath, dirnames, filenames) in os.walk(buildRoot):
