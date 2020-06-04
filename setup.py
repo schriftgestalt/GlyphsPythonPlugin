@@ -5,6 +5,8 @@ plist = dict(
 	NSPrincipalClass='GlyphsPythonModul',
 	CFBundleIdentifier="com.GeorgSeifert.GlyphsPythonModul",
 	NSHumanReadableCopyright="Copyright, Georg Seifert, 2020",
+	CFBundleShortVersionString="1.0",
+	CFBundleVersion="2",
 	MinGlyphsVersion=99,
 )
 setup(
