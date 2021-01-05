@@ -1,7 +1,7 @@
 def _reset_sys_path():
     # Clear generic sys.path[0]
-    import sys
     import os
+    import sys
 
     resources = os.environ["RESOURCEPATH"]
     while sys.path[0] == resources:
@@ -79,8 +79,8 @@ def _run():
 
 
 def _setup_ctypes():
-    from ctypes.macholib import dyld
     import os
+    from ctypes.macholib import dyld
 
     frameworks = os.path.join(os.environ["RESOURCEPATH"], "..", "Frameworks")
     dyld.DEFAULT_FRAMEWORK_FALLBACK.insert(0, frameworks)

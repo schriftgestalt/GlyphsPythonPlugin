@@ -4,13 +4,14 @@ from setuptools import setup
 plist = dict( 
 	NSPrincipalClass='GlyphsPythonModul',
 	CFBundleIdentifier="com.GeorgSeifert.GlyphsPythonModul",
-	NSHumanReadableCopyright="Copyright, Georg Seifert, 2020",
-	CFBundleShortVersionString="1.0",
-	CFBundleVersion="2",
-	MinGlyphsVersion=99,
+	NSHumanReadableCopyright="Copyright, Georg Seifert, 2021",
+	CFBundleShortVersionString="1.1",
+	CFBundleVersion="3",
+	MinGlyphsVersion="3.0.0",
 )
 setup(
 	plugin = ['GlyphsPythonModul.py'],
+    setup_requires=["py2app"],
 	options = dict(py2app=dict( 
 				extension='.glyphsPlugin',
 					plist=plist,
