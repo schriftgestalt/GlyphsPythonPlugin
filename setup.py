@@ -7,7 +7,7 @@ plist = dict(
 	NSHumanReadableCopyright="Copyright, Georg Seifert, 2021",
 	CFBundleShortVersionString="1.1",
 	CFBundleVersion="3",
-	MinGlyphsVersion="3.0.0",
+	MinGlyphsVersion="3.0.2",
 )
 setup(
 	plugin = ['GlyphsPythonModul.py'],

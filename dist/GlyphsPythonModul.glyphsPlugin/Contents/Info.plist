@@ -27,67 +27,10 @@
 	<key>LSHasLocalizedDisplayName</key>
 	<false/>
 	<key>MinGlyphsVersion</key>
-	<string>3.0.0</string>
-	<key>NSAppleScriptEnabled</key>
-	<false/>
+	<string>3.0.2</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright, Georg Seifert, 2021</string>
-	<key>NSMainNibFile</key>
-	<string>MainMen</string>
 	<key>NSPrincipalClass</key>
 	<string>GlyphsPythonModul</string>
-	<key>PyMainFileNames</key>
-	<array>
-		<string>__boot__</string>
-	</array>
-	<key>PyOptions</key>
-	<dict>
-		<key>alias</key>
-		<false/>
-		<key>argv_emulation</key>
-		<false/>
-		<key>emulate_shell_environment</key>
-		<false/>
-		<key>no_chdir</key>
-		<false/>
-		<key>prefer_ppc</key>
-		<false/>
-		<key>site_packages</key>
-		<false/>
-		<key>use_faulthandler</key>
-		<false/>
-		<key>use_pythonpath</key>
-		<false/>
-		<key>verbose</key>
-		<false/>
-	</dict>
-	<key>PyResourcePackages</key>
-	<array>
-		<string>lib/python3.9</string>
-		<string>lib/python3.9/lib-dynload</string>
-		<string>lib/python3.9/site-packages.zip</string>
-		<string>lib/python39.zip</string>
-	</array>
-	<key>PyRuntimeLocations</key>
-	<array>
-		<string>@executable_path/../Frameworks/Python.framework/Versions/3.9/Python</string>
-	</array>
-	<key>PythonInfoDict</key>
-	<dict>
-		<key>PythonExecutable</key>
-		<string>/Library/Frameworks/Python.framework/Versions/3.9/bin/python3.9</string>
-		<key>PythonLongVersion</key>
-		<string>3.9.1 (v3.9.1:1e5d33e9b9, Dec  7 2020, 12:44:01) 
-[Clang 12.0.0 (clang-1200.0.32.27)]</string>
-		<key>PythonShortVersion</key>
-		<string>3.9</string>
-		<key>py2app</key>
-		<dict>
-			<key>template</key>
-			<string>bundle</string>
-			<key>version</key>
-			<string>0.22</string>
-		</dict>
-	</dict>
 </dict>
 </plist>
