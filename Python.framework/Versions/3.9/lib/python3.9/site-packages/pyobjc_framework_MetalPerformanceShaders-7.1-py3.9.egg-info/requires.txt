@@ -1,0 +1,2 @@
+pyobjc-core>=7.1
+pyobjc-framework-Metal>=7.1

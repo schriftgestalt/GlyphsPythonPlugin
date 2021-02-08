@@ -1,0 +1,2 @@
+pyobjc-core>=7.1
+pyobjc-framework-Cocoa>=7.1
