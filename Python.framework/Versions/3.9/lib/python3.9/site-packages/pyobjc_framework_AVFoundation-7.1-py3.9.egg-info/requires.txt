@@ -1,0 +1,4 @@
+pyobjc-core>=7.1
+pyobjc-framework-CoreMedia>=7.1
+pyobjc-framework-Cocoa>=7.1
+pyobjc-framework-Quartz>=7.1
