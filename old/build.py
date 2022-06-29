@@ -15,7 +15,7 @@ for (dirpath, dirnames, filenames) in os.walk(buildRoot):
 			codesignCommand = 'codesign --remove-signature "%s"' % (binPath)
 			os.system(codesignCommand)
 
-binaries = [os.path.join(buildRoot, "Contents/Frameworks/Python.framework/Versions/3.8/Python")]
+binaries = [os.path.join(buildRoot, "Contents/Frameworks/Python.framework/Versions/3.10/Python")]
 for binary in binaries:
 	codesignCommand = 'codesign --remove-signature "%s"' % (binary)
 	os.system(codesignCommand)
