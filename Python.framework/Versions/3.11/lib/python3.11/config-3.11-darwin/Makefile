@@ -29,9 +29,9 @@ MODLIBS=           $(LOCALMODLIBS) $(BASEMODLIBS)
 
 # === Variables set by configure
 VERSION=	3.11
-srcdir=		/Users/sysadmin/build/v3.11.2
-VPATH=		/Users/sysadmin/build/v3.11.2
-abs_srcdir=	/Users/sysadmin/build/v3.11.2
+srcdir=		/Users/sysadmin/build/v3.11.3
+VPATH=		/Users/sysadmin/build/v3.11.3
+abs_srcdir=	/Users/sysadmin/build/v3.11.3
 abs_builddir=	/private/tmp/_py/_bld/python
 
 
@@ -74,7 +74,7 @@ INSTALL_DATA=	${INSTALL} -m 644
 # rather than figuring out exactly which, we always give them executable mode.
 INSTALL_SHARED= ${INSTALL} -m 755
 
-MKDIR_P=	/Users/sysadmin/build/v3.11.2/install-sh -c -d
+MKDIR_P=	/Users/sysadmin/build/v3.11.3/install-sh -c -d
 
 MAKESETUP=      $(srcdir)/Modules/makesetup
 
