@@ -55,7 +55,7 @@ build_time_vars = {'ABIFLAGS': '',
  'COVERAGE_REPORT_OPTIONS': '--no-branch-coverage --title "CPython lcov '
                             'report"',
  'CPPFLAGS': '-IObjects -IInclude -IPython -I. '
-             '-I/Users/sysadmin/build/v3.10.5/Include',
+             '-I/Users/sysadmin/build/v3.10.11/Include',
  'CXX': 'clang++',
  'DESTDIRS': '/Library/Frameworks/Python.framework/Versions/3.10 '
              '/Library/Frameworks/Python.framework/Versions/3.10/lib '
@@ -586,9 +586,9 @@ build_time_vars = {'ABIFLAGS': '',
  'MAINCC': 'clang',
  'MAJOR_IN_MKDEV': 0,
  'MAJOR_IN_SYSMACROS': 0,
- 'MAKESETUP': '/Users/sysadmin/build/v3.10.5/Modules/makesetup',
+ 'MAKESETUP': '/Users/sysadmin/build/v3.10.11/Modules/makesetup',
  'MANDIR': '/Library/Frameworks/Python.framework/Versions/3.10/share/man',
- 'MKDIR_P': '/Users/sysadmin/build/v3.10.5/install-sh -c -d',
+ 'MKDIR_P': '/Users/sysadmin/build/v3.10.11/install-sh -c -d',
  'MODBUILT_NAMES': 'posix  errno  pwd  _sre  _codecs  _weakref  _functools  '
                    '_operator  _collections  _abc  itertools  atexit  _signal  '
                    '_stat  time  _thread  _locale  _io  faulthandler  '
@@ -661,9 +661,9 @@ build_time_vars = {'ABIFLAGS': '',
                              '-Werror=implicit-function-declaration '
                              '-fvisibility=hidden '
                              '-fprofile-instr-use=code.profclangd '
-                             '-I/Users/sysadmin/build/v3.10.5/Include/internal '
+                             '-I/Users/sysadmin/build/v3.10.11/Include/internal '
                              '-IObjects -IInclude -IPython -I. '
-                             '-I/Users/sysadmin/build/v3.10.5/Include '
+                             '-I/Users/sysadmin/build/v3.10.11/Include '
                              '-DPy_BUILD_CORE_BUILTIN',
  'PY_CFLAGS': '-Wno-unused-result -Wsign-compare -Wunreachable-code '
               '-fno-common -dynamic -DNDEBUG -g -fwrapv -O3 -Wall -arch arm64 '
@@ -673,7 +673,7 @@ build_time_vars = {'ABIFLAGS': '',
                      '-Wstrict-prototypes '
                      '-Werror=implicit-function-declaration '
                      '-fvisibility=hidden -fprofile-instr-use=code.profclangd '
-                     '-I/Users/sysadmin/build/v3.10.5/Include/internal',
+                     '-I/Users/sysadmin/build/v3.10.11/Include/internal',
  'PY_COERCE_C_LOCALE': 1,
  'PY_CORE_CFLAGS': '-Wno-unused-result -Wsign-compare -Wunreachable-code '
                    '-fno-common -dynamic -DNDEBUG -g -fwrapv -O3 -Wall -arch '
@@ -682,12 +682,12 @@ build_time_vars = {'ABIFLAGS': '',
                    '-Wno-missing-field-initializers -Wstrict-prototypes '
                    '-Werror=implicit-function-declaration -fvisibility=hidden '
                    '-fprofile-instr-use=code.profclangd '
-                   '-I/Users/sysadmin/build/v3.10.5/Include/internal -IObjects '
-                   '-IInclude -IPython -I. '
-                   '-I/Users/sysadmin/build/v3.10.5/Include -DPy_BUILD_CORE',
+                   '-I/Users/sysadmin/build/v3.10.11/Include/internal '
+                   '-IObjects -IInclude -IPython -I. '
+                   '-I/Users/sysadmin/build/v3.10.11/Include -DPy_BUILD_CORE',
  'PY_CORE_LDFLAGS': '-arch arm64 -arch x86_64 -g -flto -Wl,-export_dynamic -g',
  'PY_CPPFLAGS': '-IObjects -IInclude -IPython -I. '
-                '-I/Users/sysadmin/build/v3.10.5/Include',
+                '-I/Users/sysadmin/build/v3.10.11/Include',
  'PY_ENABLE_SHARED': 0,
  'PY_FORMAT_SIZE_T': '"z"',
  'PY_LDFLAGS': '-arch arm64 -arch x86_64 -g',
@@ -702,9 +702,9 @@ build_time_vars = {'ABIFLAGS': '',
                         '-Werror=implicit-function-declaration '
                         '-fvisibility=hidden '
                         '-fprofile-instr-use=code.profclangd '
-                        '-I/Users/sysadmin/build/v3.10.5/Include/internal '
+                        '-I/Users/sysadmin/build/v3.10.11/Include/internal '
                         '-IObjects -IInclude -IPython -I. '
-                        '-I/Users/sysadmin/build/v3.10.5/Include',
+                        '-I/Users/sysadmin/build/v3.10.11/Include',
  'Py_DEBUG': 0,
  'Py_ENABLE_SHARED': 0,
  'Py_HASH_ALGORITHM': 0,
@@ -742,7 +742,7 @@ build_time_vars = {'ABIFLAGS': '',
  'SIZEOF__BOOL': 1,
  'SOABI': 'cpython-310-darwin',
  'SRCDIRS': 'Parser Objects Python Modules Modules/_io Programs',
- 'SRC_GDB_HOOKS': '/Users/sysadmin/build/v3.10.5/Tools/gdb/libpython.py',
+ 'SRC_GDB_HOOKS': '/Users/sysadmin/build/v3.10.11/Tools/gdb/libpython.py',
  'STATIC_LIBPYTHON': 1,
  'STDC_HEADERS': 1,
  'STRICT_SYSV_CURSES': "/* Don't use ncurses extensions */",
@@ -758,7 +758,7 @@ build_time_vars = {'ABIFLAGS': '',
  'TESTPYTHON': 'DYLD_FRAMEWORK_PATH=/private/tmp/_py/_bld/python ./python.exe',
  'TESTPYTHONOPTS': '',
  'TESTRUNNER': 'DYLD_FRAMEWORK_PATH=/private/tmp/_py/_bld/python ./python.exe '
-               '/Users/sysadmin/build/v3.10.5/Tools/scripts/run_tests.py',
+               '/Users/sysadmin/build/v3.10.11/Tools/scripts/run_tests.py',
  'TESTSUBDIRS': 'ctypes/test \\',
  'TESTTIMEOUT': 1200,
  'TEST_MODULES': 'yes',
@@ -769,10 +769,10 @@ build_time_vars = {'ABIFLAGS': '',
  'TZPATH': '/usr/share/zoneinfo:/usr/lib/zoneinfo:/usr/share/lib/zoneinfo:/etc/zoneinfo',
  'UNICODE_DEPS': '\\',
  'UNIVERSALSDK': '/',
- 'UPDATE_FILE': '/Users/sysadmin/build/v3.10.5/Tools/scripts/update_file.py',
+ 'UPDATE_FILE': '/Users/sysadmin/build/v3.10.11/Tools/scripts/update_file.py',
  'USE_COMPUTED_GOTOS': 1,
  'VERSION': '3.10',
- 'VPATH': '/Users/sysadmin/build/v3.10.5',
+ 'VPATH': '/Users/sysadmin/build/v3.10.11',
  'WHEEL_PKG_DIR': '',
  'WINDOW_HAS_FLAGS': 1,
  'WITH_DECIMAL_CONTEXTVAR': 1,
@@ -787,8 +787,8 @@ build_time_vars = {'ABIFLAGS': '',
  'X87_DOUBLE_ROUNDING': 0,
  'XMLLIBSUBDIRS': 'xml xml/dom xml/etree xml/parsers xml/sax',
  'abs_builddir': '/private/tmp/_py/_bld/python',
- 'abs_srcdir': '/Users/sysadmin/build/v3.10.5',
+ 'abs_srcdir': '/Users/sysadmin/build/v3.10.11',
  'datarootdir': '/Library/Frameworks/Python.framework/Versions/3.10/share',
  'exec_prefix': '/Library/Frameworks/Python.framework/Versions/3.10',
  'prefix': '/Library/Frameworks/Python.framework/Versions/3.10',
- 'srcdir': '/Users/sysadmin/build/v3.10.5'}
+ 'srcdir': '/Users/sysadmin/build/v3.10.11'}
