@@ -8,7 +8,6 @@
 	- from Python.framework/Versions/3.XX/lib/python3.xx/
 		- test
 		- idlelib
-		- unittest
 		- distutils
 		- tk8.6
 		- Tk.tiff
@@ -17,7 +16,6 @@
 		- libtk8.6.dylib
 		- libtcl8.6.dylib
 		- tcl8.6
-		- site-packages/pip
 		- site-packages/setuptools
 	- from Python.framework/Versions/3.XX/lib
 		- tcl8

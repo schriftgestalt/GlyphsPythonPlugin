@@ -29,9 +29,9 @@ MODLIBS=           $(LOCALMODLIBS) $(BASEMODLIBS)
 
 # === Variables set by configure
 VERSION=	3.11
-srcdir=		/Users/sysadmin/build/v3.11.3
-VPATH=		/Users/sysadmin/build/v3.11.3
-abs_srcdir=	/Users/sysadmin/build/v3.11.3
+srcdir=		/Users/sysadmin/build/v3.11.6
+VPATH=		/Users/sysadmin/build/v3.11.6
+abs_srcdir=	/Users/sysadmin/build/v3.11.6
 abs_builddir=	/private/tmp/_py/_bld/python
 
 
@@ -74,7 +74,7 @@ INSTALL_DATA=	${INSTALL} -m 644
 # rather than figuring out exactly which, we always give them executable mode.
 INSTALL_SHARED= ${INSTALL} -m 755
 
-MKDIR_P=	/Users/sysadmin/build/v3.11.3/install-sh -c -d
+MKDIR_P=	/Users/sysadmin/build/v3.11.6/install-sh -c -d
 
 MAKESETUP=      $(srcdir)/Modules/makesetup
 
@@ -619,6 +619,7 @@ OBJECT_OBJS=	\
 		Objects/unionobject.o \
 		Objects/weakrefobject.o
 
+DEEPFREEZE_C = Python/deepfreeze/deepfreeze.c
 DEEPFREEZE_OBJS = Python/deepfreeze/deepfreeze.o
 
 ##########################################################################
@@ -1284,12 +1285,12 @@ regen-frozen: Tools/scripts/freeze_modules.py $(FROZEN_FILES_IN)
 # Deepfreeze targets
 
 .PHONY: regen-deepfreeze
-regen-deepfreeze: $(DEEPFREEZE_OBJS)
+regen-deepfreeze: $(DEEPFREEZE_C)
 
 DEEPFREEZE_DEPS=$(srcdir)/Tools/scripts/deepfreeze.py $(FREEZE_MODULE_DEPS) $(FROZEN_FILES_OUT)
 
 # BEGIN: deepfreeze modules
-Python/deepfreeze/deepfreeze.c: $(DEEPFREEZE_DEPS)
+$(DEEPFREEZE_C): $(DEEPFREEZE_DEPS)
 	$(PYTHON_FOR_FREEZE) $(srcdir)/Tools/scripts/deepfreeze.py \
 	Python/frozen_modules/importlib._bootstrap.h:importlib._bootstrap \
 	Python/frozen_modules/importlib._bootstrap_external.h:importlib._bootstrap_external \
@@ -1316,8 +1317,6 @@ Python/deepfreeze/deepfreeze.c: $(DEEPFREEZE_DEPS)
 	Python/frozen_modules/frozen_only.h:frozen_only \
 	-o Python/deepfreeze/deepfreeze.c
 # END: deepfreeze modules
-	@echo "Note: Deepfreeze may have added some global objects,"
-	@echo "      so run 'make regen-global-objects' if necessary."
 
 # We keep this renamed target around for folks with muscle memory.
 .PHONY: regen-importlib
@@ -1326,11 +1325,12 @@ regen-importlib: regen-frozen
 ############################################################################
 # Global objects
 
+# Dependencies which can add and/or remove _Py_ID() identifiers:
+# - deepfreeze.c
+# - "make clinic"
 .PHONY: regen-global-objects
-regen-global-objects: $(srcdir)/Tools/scripts/generate_global_objects.py
+regen-global-objects: $(srcdir)/Tools/scripts/generate_global_objects.py $(DEEPFREEZE_C) clinic
 	$(PYTHON_FOR_REGEN) $(srcdir)/Tools/scripts/generate_global_objects.py
-	@echo "Note: Global objects can be added or removed by other tools (e.g. deepfreeze), "
-	@echo "      so be sure to re-run regen-global-objects after those tools."
 
 ############################################################################
 # ABI
@@ -1349,8 +1349,10 @@ regen-limited-abi: all
 ############################################################################
 # Regenerate all generated files
 
+# "clinic" is regenerated implicitly via "regen-global-objects".
+.PHONY: regen-all
 regen-all: regen-opcode regen-opcode-targets regen-typeslots \
-	regen-token regen-ast regen-keyword regen-sre regen-frozen clinic \
+	regen-token regen-ast regen-keyword regen-sre regen-frozen \
 	regen-pegen-metaparser regen-pegen regen-test-frozenmain \
 	regen-global-objects
 	@echo
@@ -1896,8 +1898,7 @@ altinstall: commoninstall
 
 commoninstall:  check-clean-src frameworkinstallstructure  \
 		altbininstall libinstall inclinstall libainstall \
-		sharedinstall oldsharedinstall altmaninstall \
-		frameworkinstallmaclib frameworkinstallapps frameworkaltinstallunixtools
+		sharedinstall oldsharedinstall altmaninstall frameworkinstallmaclib frameworkinstallapps frameworkaltinstallunixtools
 
 # Install shared libraries enabled by Setup
 DESTDIRS=	$(exec_prefix) $(LIBDIR) $(BINLIBDEST) $(DESTSHARED)
@@ -1971,7 +1972,11 @@ altbininstall: $(BUILDPYTHON) frameworkpythonw
 			$(DESTDIR)$(BINDIR)/python$(VERSION)$(EXE); \
 	fi
 
-bininstall: altbininstall
+# We depend on commoninstall here to make sure the installation is already usable
+# before we possibly overwrite the global 'python3' symlink to avoid causing
+# problems for anything else trying to run 'python3' while we install, particularly
+# if we're installing in parallel with -j.
+bininstall: commoninstall altbininstall
 	if test ! -d $(DESTDIR)$(LIBPC); then \
 		echo "Creating directory $(LIBPC)"; \
 		$(INSTALL) -d -m $(DIRMODE) $(DESTDIR)$(LIBPC); \
@@ -2071,15 +2076,28 @@ TESTSUBDIRS=	ctypes/test \
 		lib2to3/tests/data \
 		lib2to3/tests/data/fixers \
 		lib2to3/tests/data/fixers/myfixes \
-		test test/audiodata \
-		test/capath test/cjkencodings \
-		test/data test/decimaltestdata \
-		test/dtracedata test/eintrdata \
-		test/encoded_modules test/imghdrdata \
-		test/libregrtest test/sndhdrdata \
-		test/subprocessdata test/support \
+		test \
+		test/audiodata \
+		test/capath \
+		test/cjkencodings \
+		test/crashers \
+		test/data \
+		test/decimaltestdata \
+		test/dtracedata \
+		test/encoded_modules \
+		test/imghdrdata \
+		test/leakers \
+		test/libregrtest \
+		test/sndhdrdata \
+		test/subprocessdata \
+		test/support \
 		test/test_asyncio \
-		test/test_email test/test_email/data \
+		test/test_capi \
+		test/test_cppext \
+		test/test_dataclasses \
+		test/test_email \
+		test/test_email/data \
+		test/test_future_stmt \
 		test/test_import \
 		test/test_import/data \
 		test/test_import/data/circular_imports \
@@ -2131,17 +2149,43 @@ TESTSUBDIRS=	ctypes/test \
 		test/test_importlib/zipdata01 \
 		test/test_importlib/zipdata02 \
 		test/test_json \
+		test/test_module \
 		test/test_peg_generator \
+		test/test_sqlite3 \
+		test/test_tomllib \
+		test/test_tomllib/data \
+		test/test_tomllib/data/invalid \
+		test/test_tomllib/data/invalid/array \
+		test/test_tomllib/data/invalid/array-of-tables \
+		test/test_tomllib/data/invalid/boolean \
+		test/test_tomllib/data/invalid/dates-and-times \
+		test/test_tomllib/data/invalid/dotted-keys \
+		test/test_tomllib/data/invalid/inline-table \
+		test/test_tomllib/data/invalid/keys-and-vals \
+		test/test_tomllib/data/invalid/literal-str \
+		test/test_tomllib/data/invalid/multiline-basic-str \
+		test/test_tomllib/data/invalid/multiline-literal-str \
+		test/test_tomllib/data/invalid/table \
+		test/test_tomllib/data/valid \
+		test/test_tomllib/data/valid/array \
+		test/test_tomllib/data/valid/dates-and-times \
+		test/test_tomllib/data/valid/multiline-basic-str \
 		test/test_tools \
-		test/test_warnings test/test_warnings/data \
-		test/test_zoneinfo test/test_zoneinfo/data \
+		test/test_warnings \
+		test/test_warnings/data \
+		test/test_zoneinfo \
+		test/test_zoneinfo/data \
+		test/tokenizedata \
 		test/tracedmodules \
 		test/typinganndata \
-		test/xmltestdata test/xmltestdata/c14n-20 \
+		test/xmltestdata \
+		test/xmltestdata/c14n-20 \
 		test/ziptestdata \
-		tkinter/test tkinter/test/test_tkinter \
+		tkinter/test \
+		tkinter/test/test_tkinter \
 		tkinter/test/test_ttk \
-		unittest/test unittest/test/testmock
+		unittest/test \
+		unittest/test/testmock
 
 TEST_MODULES=yes
 libinstall:	all $(srcdir)/Modules/xxmodule.c
@@ -2482,6 +2526,7 @@ recheck:
 autoconf:
 	(cd $(srcdir); autoreconf -ivf -Werror)
 
+# See https://github.com/tiran/cpython_autoconf container
 .PHONY: regen-configure
 regen-configure:
 	@if command -v podman >/dev/null; then RUNTIME="podman"; else RUNTIME="docker"; fi; \

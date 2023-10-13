@@ -58,14 +58,15 @@ build_time_vars = {'ABIFLAGS': '',
                             '--title "CPython 3.11 LCOV report [commit $(shell '
                             ')]"',
  'CPPFLAGS': '-IObjects -IInclude -IPython -I. '
-             '-I/Users/sysadmin/build/v3.11.3/Include',
+             '-I/Users/sysadmin/build/v3.11.6/Include',
  'CXX': 'clang++',
- 'DECIMAL_CFLAGS': '-I/Users/sysadmin/build/v3.11.3/Modules/_decimal/libmpdec '
+ 'DECIMAL_CFLAGS': '-I/Users/sysadmin/build/v3.11.6/Modules/_decimal/libmpdec '
                    '-DUNIVERSAL=1',
  'DECIMAL_LDFLAGS': '-lm Modules/_decimal/libmpdec/libmpdec.a',
- 'DEEPFREEZE_DEPS': '/Users/sysadmin/build/v3.11.3/Tools/scripts/deepfreeze.py '
+ 'DEEPFREEZE_C': 'Python/deepfreeze/deepfreeze.c',
+ 'DEEPFREEZE_DEPS': '/Users/sysadmin/build/v3.11.6/Tools/scripts/deepfreeze.py '
                     '_bootstrap_python '
-                    '/Users/sysadmin/build/v3.11.3/Programs/_freeze_module.py '
+                    '/Users/sysadmin/build/v3.11.6/Programs/_freeze_module.py '
                     '\\',
  'DEEPFREEZE_OBJS': 'Python/deepfreeze/deepfreeze.o',
  'DESTDIRS': '/Library/Frameworks/Python.framework/Versions/3.11 '
@@ -96,7 +97,7 @@ build_time_vars = {'ABIFLAGS': '',
  'ENSUREPIP': 'no',
  'EXE': '',
  'EXEMODE': 755,
- 'EXPAT_CFLAGS': '-I/Users/sysadmin/build/v3.11.3/Modules/expat',
+ 'EXPAT_CFLAGS': '-I/Users/sysadmin/build/v3.11.6/Modules/expat',
  'EXPAT_LDFLAGS': '-lm Modules/expat/libexpat.a',
  'EXPORTSFROM': '',
  'EXPORTSYMS': '',
@@ -106,11 +107,11 @@ build_time_vars = {'ABIFLAGS': '',
  'FILEMODE': 644,
  'FLOAT_WORDS_BIGENDIAN': 0,
  'FREEZE_MODULE': './_bootstrap_python '
-                  '/Users/sysadmin/build/v3.11.3/Programs/_freeze_module.py',
+                  '/Users/sysadmin/build/v3.11.6/Programs/_freeze_module.py',
  'FREEZE_MODULE_BOOTSTRAP': './Programs/_freeze_module',
  'FREEZE_MODULE_BOOTSTRAP_DEPS': 'Programs/_freeze_module',
  'FREEZE_MODULE_DEPS': '_bootstrap_python '
-                       '/Users/sysadmin/build/v3.11.3/Programs/_freeze_module.py',
+                       '/Users/sysadmin/build/v3.11.6/Programs/_freeze_module.py',
  'FROZEN_FILES_IN': '\\',
  'FROZEN_FILES_OUT': '\\',
  'GETPGRP_HAVE_ARG': 0,
@@ -335,6 +336,7 @@ build_time_vars = {'ABIFLAGS': '',
  'HAVE_LINUX_CAN_RAW_FD_FRAMES': 0,
  'HAVE_LINUX_CAN_RAW_H': 0,
  'HAVE_LINUX_CAN_RAW_JOIN_FILTERS': 0,
+ 'HAVE_LINUX_LIMITS_H': 0,
  'HAVE_LINUX_MEMFD_H': 0,
  'HAVE_LINUX_NETLINK_H': 0,
  'HAVE_LINUX_QRTR_H': 0,
@@ -623,31 +625,31 @@ build_time_vars = {'ABIFLAGS': '',
  'LIBDEST': '/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11',
  'LIBDIR': '/Library/Frameworks/Python.framework/Versions/3.11/lib',
  'LIBEXPAT_A': 'Modules/expat/libexpat.a',
- 'LIBEXPAT_CFLAGS': '-I/Users/sysadmin/build/v3.11.3/Modules/expat '
+ 'LIBEXPAT_CFLAGS': '-I/Users/sysadmin/build/v3.11.6/Modules/expat '
                     '-Wsign-compare -Wunreachable-code -fno-common -dynamic '
                     '-DNDEBUG -g -fwrapv -O3 -Wall -arch arm64 -arch x86_64 -g '
                     '-flto -std=c11 -Wextra -Wno-unused-parameter '
                     '-Wno-missing-field-initializers -Wstrict-prototypes '
                     '-Werror=implicit-function-declaration -fvisibility=hidden '
                     '-fprofile-instr-use=code.profclangd '
-                    '-I/Users/sysadmin/build/v3.11.3/Include/internal '
+                    '-I/Users/sysadmin/build/v3.11.6/Include/internal '
                     '-IObjects -IInclude -IPython -I. '
-                    '-I/Users/sysadmin/build/v3.11.3/Include',
+                    '-I/Users/sysadmin/build/v3.11.6/Include',
  'LIBEXPAT_HEADERS': '\\',
  'LIBEXPAT_OBJS': '\\',
  'LIBFFI_INCLUDEDIR': '',
  'LIBM': '',
  'LIBMPDEC_A': 'Modules/_decimal/libmpdec/libmpdec.a',
- 'LIBMPDEC_CFLAGS': '-I/Users/sysadmin/build/v3.11.3/Modules/_decimal/libmpdec '
+ 'LIBMPDEC_CFLAGS': '-I/Users/sysadmin/build/v3.11.6/Modules/_decimal/libmpdec '
                     '-DUNIVERSAL=1 -Wsign-compare -Wunreachable-code '
                     '-fno-common -dynamic -DNDEBUG -g -fwrapv -O3 -Wall -arch '
                     'arm64 -arch x86_64 -g -flto -std=c11 -Wextra '
                     '-Wno-unused-parameter -Wno-missing-field-initializers '
                     '-Wstrict-prototypes -Werror=implicit-function-declaration '
                     '-fvisibility=hidden -fprofile-instr-use=code.profclangd '
-                    '-I/Users/sysadmin/build/v3.11.3/Include/internal '
+                    '-I/Users/sysadmin/build/v3.11.6/Include/internal '
                     '-IObjects -IInclude -IPython -I. '
-                    '-I/Users/sysadmin/build/v3.11.3/Include',
+                    '-I/Users/sysadmin/build/v3.11.6/Include',
  'LIBMPDEC_HEADERS': '\\',
  'LIBMPDEC_OBJS': '\\',
  'LIBOBJDIR': 'Python/',
@@ -681,9 +683,9 @@ build_time_vars = {'ABIFLAGS': '',
  'MAINCC': 'clang',
  'MAJOR_IN_MKDEV': 0,
  'MAJOR_IN_SYSMACROS': 0,
- 'MAKESETUP': '/Users/sysadmin/build/v3.11.3/Modules/makesetup',
+ 'MAKESETUP': '/Users/sysadmin/build/v3.11.6/Modules/makesetup',
  'MANDIR': '/Library/Frameworks/Python.framework/Versions/3.11/share/man',
- 'MKDIR_P': '/Users/sysadmin/build/v3.11.3/install-sh -c -d',
+ 'MKDIR_P': '/Users/sysadmin/build/v3.11.6/install-sh -c -d',
  'MODBUILT_NAMES': 'atexit  faulthandler  posix  _signal  _tracemalloc  '
                    '_codecs  _collections  errno  _io  itertools  _sre  '
                    '_thread  time  _weakref  _abc  _functools  _locale  '
@@ -711,7 +713,7 @@ build_time_vars = {'ABIFLAGS': '',
  'MODULE_BINASCII_CFLAGS': '-DUSE_ZLIB_CRC32',
  'MODULE_BINASCII_LDFLAGS': '-lz',
  'MODULE_BINASCII_STATE': 'yes',
- 'MODULE_CMATH_DEPS': '/Users/sysadmin/build/v3.11.3/Modules/_math.h',
+ 'MODULE_CMATH_DEPS': '/Users/sysadmin/build/v3.11.6/Modules/_math.h',
  'MODULE_CMATH_LDFLAGS': '',
  'MODULE_CMATH_STATE': 'yes',
  'MODULE_ERRNO_LDFLAGS': '',
@@ -720,7 +722,7 @@ build_time_vars = {'ABIFLAGS': '',
  'MODULE_FCNTL_STATE': 'yes',
  'MODULE_GRP_STATE': 'yes',
  'MODULE_ITERTOOLS_LDFLAGS': '',
- 'MODULE_MATH_DEPS': '/Users/sysadmin/build/v3.11.3/Modules/_math.h',
+ 'MODULE_MATH_DEPS': '/Users/sysadmin/build/v3.11.6/Modules/_math.h',
  'MODULE_MATH_LDFLAGS': '',
  'MODULE_MATH_STATE': 'yes',
  'MODULE_MMAP_STATE': 'yes',
@@ -732,7 +734,7 @@ build_time_vars = {'ABIFLAGS': '',
  'MODULE_POSIX_LDFLAGS': '',
  'MODULE_PWD_LDFLAGS': '',
  'MODULE_PWD_STATE': 'yes',
- 'MODULE_PYEXPAT_CFLAGS': '-I/Users/sysadmin/build/v3.11.3/Modules/expat',
+ 'MODULE_PYEXPAT_CFLAGS': '-I/Users/sysadmin/build/v3.11.6/Modules/expat',
  'MODULE_PYEXPAT_DEPS': '\\ Modules/expat/libexpat.a',
  'MODULE_PYEXPAT_LDFLAGS': '-lm Modules/expat/libexpat.a',
  'MODULE_PYEXPAT_STATE': 'yes',
@@ -743,8 +745,8 @@ build_time_vars = {'ABIFLAGS': '',
  'MODULE_TERMIOS_STATE': 'yes',
  'MODULE_TIME_LDFLAGS': '',
  'MODULE_TIME_STATE': 'yes',
- 'MODULE_UNICODEDATA_DEPS': '/Users/sysadmin/build/v3.11.3/Modules/unicodedata_db.h '
-                            '/Users/sysadmin/build/v3.11.3/Modules/unicodename_db.h',
+ 'MODULE_UNICODEDATA_DEPS': '/Users/sysadmin/build/v3.11.6/Modules/unicodedata_db.h '
+                            '/Users/sysadmin/build/v3.11.6/Modules/unicodename_db.h',
  'MODULE_UNICODEDATA_STATE': 'yes',
  'MODULE_XXLIMITED_35_STATE': 'yes',
  'MODULE_XXLIMITED_STATE': 'yes',
@@ -756,22 +758,22 @@ build_time_vars = {'ABIFLAGS': '',
  'MODULE__ASYNCIO_STATE': 'yes',
  'MODULE__BISECT_STATE': 'yes',
  'MODULE__BLAKE2_CFLAGS': '',
- 'MODULE__BLAKE2_DEPS': '/Users/sysadmin/build/v3.11.3/Modules/_blake2/impl/blake2-config.h '
-                        '/Users/sysadmin/build/v3.11.3/Modules/_blake2/impl/blake2-impl.h '
-                        '/Users/sysadmin/build/v3.11.3/Modules/_blake2/impl/blake2.h '
-                        '/Users/sysadmin/build/v3.11.3/Modules/_blake2/impl/blake2b-load-sse2.h '
-                        '/Users/sysadmin/build/v3.11.3/Modules/_blake2/impl/blake2b-load-sse41.h '
-                        '/Users/sysadmin/build/v3.11.3/Modules/_blake2/impl/blake2b-ref.c '
-                        '/Users/sysadmin/build/v3.11.3/Modules/_blake2/impl/blake2b-round.h '
-                        '/Users/sysadmin/build/v3.11.3/Modules/_blake2/impl/blake2b.c '
-                        '/Users/sysadmin/build/v3.11.3/Modules/_blake2/impl/blake2s-load-sse2.h '
-                        '/Users/sysadmin/build/v3.11.3/Modules/_blake2/impl/blake2s-load-sse41.h '
-                        '/Users/sysadmin/build/v3.11.3/Modules/_blake2/impl/blake2s-load-xop.h '
-                        '/Users/sysadmin/build/v3.11.3/Modules/_blake2/impl/blake2s-ref.c '
-                        '/Users/sysadmin/build/v3.11.3/Modules/_blake2/impl/blake2s-round.h '
-                        '/Users/sysadmin/build/v3.11.3/Modules/_blake2/impl/blake2s.c '
-                        '/Users/sysadmin/build/v3.11.3/Modules/_blake2/blake2module.h '
-                        '/Users/sysadmin/build/v3.11.3/Modules/hashlib.h',
+ 'MODULE__BLAKE2_DEPS': '/Users/sysadmin/build/v3.11.6/Modules/_blake2/impl/blake2-config.h '
+                        '/Users/sysadmin/build/v3.11.6/Modules/_blake2/impl/blake2-impl.h '
+                        '/Users/sysadmin/build/v3.11.6/Modules/_blake2/impl/blake2.h '
+                        '/Users/sysadmin/build/v3.11.6/Modules/_blake2/impl/blake2b-load-sse2.h '
+                        '/Users/sysadmin/build/v3.11.6/Modules/_blake2/impl/blake2b-load-sse41.h '
+                        '/Users/sysadmin/build/v3.11.6/Modules/_blake2/impl/blake2b-ref.c '
+                        '/Users/sysadmin/build/v3.11.6/Modules/_blake2/impl/blake2b-round.h '
+                        '/Users/sysadmin/build/v3.11.6/Modules/_blake2/impl/blake2b.c '
+                        '/Users/sysadmin/build/v3.11.6/Modules/_blake2/impl/blake2s-load-sse2.h '
+                        '/Users/sysadmin/build/v3.11.6/Modules/_blake2/impl/blake2s-load-sse41.h '
+                        '/Users/sysadmin/build/v3.11.6/Modules/_blake2/impl/blake2s-load-xop.h '
+                        '/Users/sysadmin/build/v3.11.6/Modules/_blake2/impl/blake2s-ref.c '
+                        '/Users/sysadmin/build/v3.11.6/Modules/_blake2/impl/blake2s-round.h '
+                        '/Users/sysadmin/build/v3.11.6/Modules/_blake2/impl/blake2s.c '
+                        '/Users/sysadmin/build/v3.11.6/Modules/_blake2/blake2module.h '
+                        '/Users/sysadmin/build/v3.11.6/Modules/hashlib.h',
  'MODULE__BLAKE2_LDFLAGS': '',
  'MODULE__BLAKE2_STATE': 'yes',
  'MODULE__BZ2_CFLAGS': '',
@@ -790,30 +792,30 @@ build_time_vars = {'ABIFLAGS': '',
  'MODULE__CRYPT_LDFLAGS': '',
  'MODULE__CRYPT_STATE': 'yes',
  'MODULE__CSV_STATE': 'yes',
- 'MODULE__CTYPES_DEPS': '/Users/sysadmin/build/v3.11.3/Modules/_ctypes/ctypes.h',
+ 'MODULE__CTYPES_DEPS': '/Users/sysadmin/build/v3.11.6/Modules/_ctypes/ctypes.h',
  'MODULE__CTYPES_TEST_LDFLAGS': '-lm',
  'MODULE__CTYPES_TEST_STATE': 'yes',
  'MODULE__DATETIME_LDFLAGS': '',
  'MODULE__DATETIME_STATE': 'yes',
- 'MODULE__DECIMAL_CFLAGS': '-I/Users/sysadmin/build/v3.11.3/Modules/_decimal/libmpdec '
+ 'MODULE__DECIMAL_CFLAGS': '-I/Users/sysadmin/build/v3.11.6/Modules/_decimal/libmpdec '
                            '-DUNIVERSAL=1',
- 'MODULE__DECIMAL_DEPS': '/Users/sysadmin/build/v3.11.3/Modules/_decimal/docstrings.h '
+ 'MODULE__DECIMAL_DEPS': '/Users/sysadmin/build/v3.11.6/Modules/_decimal/docstrings.h '
                          '\\ Modules/_decimal/libmpdec/libmpdec.a',
  'MODULE__DECIMAL_LDFLAGS': '-lm Modules/_decimal/libmpdec/libmpdec.a',
  'MODULE__DECIMAL_STATE': 'yes',
- 'MODULE__ELEMENTTREE_CFLAGS': '-I/Users/sysadmin/build/v3.11.3/Modules/expat',
- 'MODULE__ELEMENTTREE_DEPS': '/Users/sysadmin/build/v3.11.3/Modules/pyexpat.c '
+ 'MODULE__ELEMENTTREE_CFLAGS': '-I/Users/sysadmin/build/v3.11.6/Modules/expat',
+ 'MODULE__ELEMENTTREE_DEPS': '/Users/sysadmin/build/v3.11.6/Modules/pyexpat.c '
                              '\\ Modules/expat/libexpat.a',
  'MODULE__ELEMENTTREE_STATE': 'yes',
  'MODULE__FUNCTOOLS_LDFLAGS': '',
  'MODULE__GDBM_STATE': 'missing',
  'MODULE__HASHLIB_CFLAGS': '-I/tmp/_py/libraries/usr/local/include',
- 'MODULE__HASHLIB_DEPS': '/Users/sysadmin/build/v3.11.3/Modules/hashlib.h',
+ 'MODULE__HASHLIB_DEPS': '/Users/sysadmin/build/v3.11.6/Modules/hashlib.h',
  'MODULE__HASHLIB_LDFLAGS': '  -lcrypto',
  'MODULE__HASHLIB_STATE': 'yes',
  'MODULE__HEAPQ_STATE': 'yes',
- 'MODULE__IO_CFLAGS': '-I/Users/sysadmin/build/v3.11.3/Modules/_io',
- 'MODULE__IO_DEPS': '/Users/sysadmin/build/v3.11.3/Modules/_io/_iomodule.h',
+ 'MODULE__IO_CFLAGS': '-I/Users/sysadmin/build/v3.11.6/Modules/_io',
+ 'MODULE__IO_DEPS': '/Users/sysadmin/build/v3.11.6/Modules/_io/_iomodule.h',
  'MODULE__IO_LDFLAGS': '',
  'MODULE__IO_STATE': 'yes',
  'MODULE__JSON_STATE': 'yes',
@@ -822,15 +824,15 @@ build_time_vars = {'ABIFLAGS': '',
  'MODULE__LZMA_CFLAGS': '',
  'MODULE__LZMA_LDFLAGS': '-llzma',
  'MODULE__LZMA_STATE': 'yes',
- 'MODULE__MD5_DEPS': '/Users/sysadmin/build/v3.11.3/Modules/hashlib.h',
+ 'MODULE__MD5_DEPS': '/Users/sysadmin/build/v3.11.6/Modules/hashlib.h',
  'MODULE__MD5_STATE': 'yes',
  'MODULE__MULTIBYTECODEC_STATE': 'yes',
- 'MODULE__MULTIPROCESSING_CFLAGS': '-I/Users/sysadmin/build/v3.11.3/Modules/_multiprocessing',
+ 'MODULE__MULTIPROCESSING_CFLAGS': '-I/Users/sysadmin/build/v3.11.6/Modules/_multiprocessing',
  'MODULE__MULTIPROCESSING_STATE': 'yes',
  'MODULE__OPCODE_STATE': 'yes',
  'MODULE__OPERATOR_LDFLAGS': '',
  'MODULE__PICKLE_STATE': 'yes',
- 'MODULE__POSIXSHMEM_CFLAGS': '-I/Users/sysadmin/build/v3.11.3/Modules/_multiprocessing',
+ 'MODULE__POSIXSHMEM_CFLAGS': '-I/Users/sysadmin/build/v3.11.6/Modules/_multiprocessing',
  'MODULE__POSIXSHMEM_LDFLAGS': '',
  'MODULE__POSIXSHMEM_STATE': 'yes',
  'MODULE__POSIXSUBPROCESS_STATE': 'yes',
@@ -839,42 +841,42 @@ build_time_vars = {'ABIFLAGS': '',
  'MODULE__SCPROXY_LDFLAGS': '-framework SystemConfiguration -framework '
                             'CoreFoundation',
  'MODULE__SCPROXY_STATE': 'yes',
- 'MODULE__SHA1_DEPS': '/Users/sysadmin/build/v3.11.3/Modules/hashlib.h',
+ 'MODULE__SHA1_DEPS': '/Users/sysadmin/build/v3.11.6/Modules/hashlib.h',
  'MODULE__SHA1_STATE': 'yes',
- 'MODULE__SHA256_DEPS': '/Users/sysadmin/build/v3.11.3/Modules/hashlib.h',
+ 'MODULE__SHA256_DEPS': '/Users/sysadmin/build/v3.11.6/Modules/hashlib.h',
  'MODULE__SHA256_STATE': 'yes',
- 'MODULE__SHA3_DEPS': '/Users/sysadmin/build/v3.11.3/Modules/_sha3/sha3.c '
-                      '/Users/sysadmin/build/v3.11.3/Modules/_sha3/sha3.h '
-                      '/Users/sysadmin/build/v3.11.3/Modules/hashlib.h',
+ 'MODULE__SHA3_DEPS': '/Users/sysadmin/build/v3.11.6/Modules/_sha3/sha3.c '
+                      '/Users/sysadmin/build/v3.11.6/Modules/_sha3/sha3.h '
+                      '/Users/sysadmin/build/v3.11.6/Modules/hashlib.h',
  'MODULE__SHA3_STATE': 'yes',
- 'MODULE__SHA512_DEPS': '/Users/sysadmin/build/v3.11.3/Modules/hashlib.h',
+ 'MODULE__SHA512_DEPS': '/Users/sysadmin/build/v3.11.6/Modules/hashlib.h',
  'MODULE__SHA512_STATE': 'yes',
  'MODULE__SIGNAL_LDFLAGS': '',
- 'MODULE__SOCKET_DEPS': '/Users/sysadmin/build/v3.11.3/Modules/socketmodule.h '
-                        '/Users/sysadmin/build/v3.11.3/Modules/addrinfo.h '
-                        '/Users/sysadmin/build/v3.11.3/Modules/getaddrinfo.c '
-                        '/Users/sysadmin/build/v3.11.3/Modules/getnameinfo.c',
+ 'MODULE__SOCKET_DEPS': '/Users/sysadmin/build/v3.11.6/Modules/socketmodule.h '
+                        '/Users/sysadmin/build/v3.11.6/Modules/addrinfo.h '
+                        '/Users/sysadmin/build/v3.11.6/Modules/getaddrinfo.c '
+                        '/Users/sysadmin/build/v3.11.6/Modules/getnameinfo.c',
  'MODULE__SOCKET_STATE': 'yes',
- 'MODULE__SQLITE3_CFLAGS': '-I/Users/sysadmin/build/v3.11.3/Modules/_sqlite',
- 'MODULE__SQLITE3_DEPS': '/Users/sysadmin/build/v3.11.3/Modules/_sqlite/connection.h '
-                         '/Users/sysadmin/build/v3.11.3/Modules/_sqlite/cursor.h '
-                         '/Users/sysadmin/build/v3.11.3/Modules/_sqlite/microprotocols.h '
-                         '/Users/sysadmin/build/v3.11.3/Modules/_sqlite/module.h '
-                         '/Users/sysadmin/build/v3.11.3/Modules/_sqlite/prepare_protocol.h '
-                         '/Users/sysadmin/build/v3.11.3/Modules/_sqlite/row.h '
-                         '/Users/sysadmin/build/v3.11.3/Modules/_sqlite/util.h',
+ 'MODULE__SQLITE3_CFLAGS': '-I/Users/sysadmin/build/v3.11.6/Modules/_sqlite',
+ 'MODULE__SQLITE3_DEPS': '/Users/sysadmin/build/v3.11.6/Modules/_sqlite/connection.h '
+                         '/Users/sysadmin/build/v3.11.6/Modules/_sqlite/cursor.h '
+                         '/Users/sysadmin/build/v3.11.6/Modules/_sqlite/microprotocols.h '
+                         '/Users/sysadmin/build/v3.11.6/Modules/_sqlite/module.h '
+                         '/Users/sysadmin/build/v3.11.6/Modules/_sqlite/prepare_protocol.h '
+                         '/Users/sysadmin/build/v3.11.6/Modules/_sqlite/row.h '
+                         '/Users/sysadmin/build/v3.11.6/Modules/_sqlite/util.h',
  'MODULE__SQLITE3_LDFLAGS': '-lsqlite3',
  'MODULE__SQLITE3_STATE': 'yes',
  'MODULE__SRE_LDFLAGS': '',
  'MODULE__SSL_CFLAGS': '-I/tmp/_py/libraries/usr/local/include',
- 'MODULE__SSL_DEPS': '/Users/sysadmin/build/v3.11.3/Modules/_ssl.h '
-                     '/Users/sysadmin/build/v3.11.3/Modules/_ssl/cert.c '
-                     '/Users/sysadmin/build/v3.11.3/Modules/_ssl/debughelpers.c '
-                     '/Users/sysadmin/build/v3.11.3/Modules/_ssl/misc.c '
-                     '/Users/sysadmin/build/v3.11.3/Modules/_ssl_data.h '
-                     '/Users/sysadmin/build/v3.11.3/Modules/_ssl_data_111.h '
-                     '/Users/sysadmin/build/v3.11.3/Modules/_ssl_data_300.h '
-                     '/Users/sysadmin/build/v3.11.3/Modules/socketmodule.h',
+ 'MODULE__SSL_DEPS': '/Users/sysadmin/build/v3.11.6/Modules/_ssl.h '
+                     '/Users/sysadmin/build/v3.11.6/Modules/_ssl/cert.c '
+                     '/Users/sysadmin/build/v3.11.6/Modules/_ssl/debughelpers.c '
+                     '/Users/sysadmin/build/v3.11.6/Modules/_ssl/misc.c '
+                     '/Users/sysadmin/build/v3.11.6/Modules/_ssl_data.h '
+                     '/Users/sysadmin/build/v3.11.6/Modules/_ssl_data_111.h '
+                     '/Users/sysadmin/build/v3.11.6/Modules/_ssl_data_300.h '
+                     '/Users/sysadmin/build/v3.11.6/Modules/socketmodule.h',
  'MODULE__SSL_LDFLAGS': ' -lssl -lcrypto',
  'MODULE__SSL_STATE': 'yes',
  'MODULE__STATISTICS_LDFLAGS': '',
@@ -883,7 +885,7 @@ build_time_vars = {'ABIFLAGS': '',
  'MODULE__STRUCT_STATE': 'yes',
  'MODULE__SYMTABLE_LDFLAGS': '',
  'MODULE__TESTBUFFER_STATE': 'yes',
- 'MODULE__TESTCAPI_DEPS': '/Users/sysadmin/build/v3.11.3/Modules/testcapi_long.h',
+ 'MODULE__TESTCAPI_DEPS': '/Users/sysadmin/build/v3.11.6/Modules/testcapi_long.h',
  'MODULE__TESTCAPI_STATE': 'yes',
  'MODULE__TESTCLINIC_STATE': 'yes',
  'MODULE__TESTIMPORTMULTIPLE_STATE': 'yes',
@@ -956,9 +958,9 @@ build_time_vars = {'ABIFLAGS': '',
                              '-Werror=implicit-function-declaration '
                              '-fvisibility=hidden '
                              '-fprofile-instr-use=code.profclangd '
-                             '-I/Users/sysadmin/build/v3.11.3/Include/internal '
+                             '-I/Users/sysadmin/build/v3.11.6/Include/internal '
                              '-IObjects -IInclude -IPython -I. '
-                             '-I/Users/sysadmin/build/v3.11.3/Include '
+                             '-I/Users/sysadmin/build/v3.11.6/Include '
                              '-DPy_BUILD_CORE_BUILTIN',
  'PY_CFLAGS': '-Wsign-compare -Wunreachable-code -fno-common -dynamic -DNDEBUG '
               '-g -fwrapv -O3 -Wall -arch arm64 -arch x86_64 -g',
@@ -966,7 +968,7 @@ build_time_vars = {'ABIFLAGS': '',
                      '-Wno-missing-field-initializers -Wstrict-prototypes '
                      '-Werror=implicit-function-declaration '
                      '-fvisibility=hidden -fprofile-instr-use=code.profclangd '
-                     '-I/Users/sysadmin/build/v3.11.3/Include/internal',
+                     '-I/Users/sysadmin/build/v3.11.6/Include/internal',
  'PY_COERCE_C_LOCALE': 1,
  'PY_CORE_CFLAGS': '-Wsign-compare -Wunreachable-code -fno-common -dynamic '
                    '-DNDEBUG -g -fwrapv -O3 -Wall -arch arm64 -arch x86_64 -g '
@@ -974,12 +976,12 @@ build_time_vars = {'ABIFLAGS': '',
                    '-Wno-missing-field-initializers -Wstrict-prototypes '
                    '-Werror=implicit-function-declaration -fvisibility=hidden '
                    '-fprofile-instr-use=code.profclangd '
-                   '-I/Users/sysadmin/build/v3.11.3/Include/internal -IObjects '
+                   '-I/Users/sysadmin/build/v3.11.6/Include/internal -IObjects '
                    '-IInclude -IPython -I. '
-                   '-I/Users/sysadmin/build/v3.11.3/Include -DPy_BUILD_CORE',
+                   '-I/Users/sysadmin/build/v3.11.6/Include -DPy_BUILD_CORE',
  'PY_CORE_LDFLAGS': '-arch arm64 -arch x86_64 -g -flto -Wl,-export_dynamic -g',
  'PY_CPPFLAGS': '-IObjects -IInclude -IPython -I. '
-                '-I/Users/sysadmin/build/v3.11.3/Include',
+                '-I/Users/sysadmin/build/v3.11.6/Include',
  'PY_ENABLE_SHARED': 0,
  'PY_FORMAT_SIZE_T': '"z"',
  'PY_LDFLAGS': '-arch arm64 -arch x86_64 -g',
@@ -997,9 +999,9 @@ build_time_vars = {'ABIFLAGS': '',
                         '-Werror=implicit-function-declaration '
                         '-fvisibility=hidden '
                         '-fprofile-instr-use=code.profclangd '
-                        '-I/Users/sysadmin/build/v3.11.3/Include/internal '
+                        '-I/Users/sysadmin/build/v3.11.6/Include/internal '
                         '-IObjects -IInclude -IPython -I. '
-                        '-I/Users/sysadmin/build/v3.11.3/Include',
+                        '-I/Users/sysadmin/build/v3.11.6/Include',
  'PY_SUPPORT_TIER': 1,
  'Py_DEBUG': 0,
  'Py_ENABLE_SHARED': 0,
@@ -1043,7 +1045,7 @@ build_time_vars = {'ABIFLAGS': '',
             'Modules/_sre   Modules/_xxtestfuzz   Modules/cjkcodecs   '
             'Modules/expat   Objects   Parser   Programs   Python   '
             'Python/frozen_modules   Python/deepfreeze',
- 'SRC_GDB_HOOKS': '/Users/sysadmin/build/v3.11.3/Tools/gdb/libpython.py',
+ 'SRC_GDB_HOOKS': '/Users/sysadmin/build/v3.11.6/Tools/gdb/libpython.py',
  'STATIC_LIBPYTHON': 1,
  'STDC_HEADERS': 1,
  'STRICT_SYSV_CURSES': "/* Don't use ncurses extensions */",
@@ -1058,7 +1060,7 @@ build_time_vars = {'ABIFLAGS': '',
                '-E',
  'TESTPYTHONOPTS': '',
  'TESTRUNNER': 'DYLD_FRAMEWORK_PATH=/private/tmp/_py/_bld/python ./python.exe '
-               '-E /Users/sysadmin/build/v3.11.3/Tools/scripts/run_tests.py',
+               '-E /Users/sysadmin/build/v3.11.6/Tools/scripts/run_tests.py',
  'TESTSUBDIRS': 'ctypes/test \\',
  'TESTTIMEOUT': 1200,
  'TEST_MODULES': 'yes',
@@ -1069,10 +1071,10 @@ build_time_vars = {'ABIFLAGS': '',
  'TZPATH': '/usr/share/zoneinfo:/usr/lib/zoneinfo:/usr/share/lib/zoneinfo:/etc/zoneinfo',
  'UNICODE_DEPS': '\\',
  'UNIVERSALSDK': '/',
- 'UPDATE_FILE': '/Users/sysadmin/build/v3.11.3/Tools/scripts/update_file.py',
+ 'UPDATE_FILE': '/Users/sysadmin/build/v3.11.6/Tools/scripts/update_file.py',
  'USE_COMPUTED_GOTOS': 1,
  'VERSION': '3.11',
- 'VPATH': '/Users/sysadmin/build/v3.11.3',
+ 'VPATH': '/Users/sysadmin/build/v3.11.6',
  'WASM_ASSETS_DIR': './Library/Frameworks/Python.framework/Versions/3.11',
  'WASM_STDLIB': './Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/os.py',
  'WHEEL_PKG_DIR': '',
@@ -1090,8 +1092,8 @@ build_time_vars = {'ABIFLAGS': '',
  'X87_DOUBLE_ROUNDING': 0,
  'XMLLIBSUBDIRS': 'xml xml/dom xml/etree xml/parsers xml/sax',
  'abs_builddir': '/private/tmp/_py/_bld/python',
- 'abs_srcdir': '/Users/sysadmin/build/v3.11.3',
+ 'abs_srcdir': '/Users/sysadmin/build/v3.11.6',
  'datarootdir': '/Library/Frameworks/Python.framework/Versions/3.11/share',
  'exec_prefix': '/Library/Frameworks/Python.framework/Versions/3.11',
  'prefix': '/Library/Frameworks/Python.framework/Versions/3.11',
- 'srcdir': '/Users/sysadmin/build/v3.11.3'}
+ 'srcdir': '/Users/sysadmin/build/v3.11.6'}

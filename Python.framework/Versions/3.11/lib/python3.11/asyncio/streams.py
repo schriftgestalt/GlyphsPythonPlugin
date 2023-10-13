@@ -67,9 +67,8 @@ async def start_server(client_connected_cb, host=None, port=None, *,
     positional host and port, with various optional keyword arguments
     following.  The return value is the same as loop.create_server().
 
-    Additional optional keyword arguments are loop (to set the event loop
-    instance to use) and limit (to set the buffer limit passed to the
-    StreamReader).
+    Additional optional keyword argument is limit (to set the buffer
+    limit passed to the StreamReader).
 
     The return value is the same as loop.create_server(), i.e. a
     Server object which can be used to stop the service.
@@ -390,6 +389,10 @@ class StreamWriter:
             ssl_handshake_timeout=ssl_handshake_timeout)
         self._transport = new_transport
         protocol._replace_writer(self)
+
+    def __del__(self):
+        if not self._transport.is_closing():
+            self.close()
 
 
 class StreamReader:
