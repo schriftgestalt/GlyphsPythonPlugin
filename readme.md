@@ -1,8 +1,11 @@
 ## Update instructions
-- Download the latest universal binary release from python.org and install it.
-- Copy the Python.framework from `/Library/Frameworks/Python.framework`
-- run `pip3 install pyobjc` (this should install an universal binary)
-- run `pip3 install brotli` (this should install an universal binary)
+
+- remove "Python.framework"
+
+- run `python3 relocatable-python/make_relocatable_python_framework.py --python-version 3.XX.Y --destination . --os-version 11`
+
+- run `Python.framework/Versions/3.11/bin/python3.11 -m pip install pyobjc brotli` (this should install an universal binary)
+
 - Remove the following files and folders:
 	- All other versions that might be in the `Versions` folder. 
 	- from Python.framework/Versions/3.XX/lib/python3.xx/
@@ -15,6 +18,8 @@
 		- tkConfig.sh
 		- libtk8.6.dylib
 		- libtcl8.6.dylib
+		- libtclstub8.6.a
+		- libtkstub8.6.a
 		- tcl8.6
 		- site-packages/setuptools
 	- from Python.framework/Versions/3.XX/lib
