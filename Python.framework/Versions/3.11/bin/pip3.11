@@ -1,4 +1,7 @@
-#!/Library/Frameworks/Python.framework/Versions/3.11/bin/python3.11
+#!/bin/sh
+'''exec' "$(dirname "$0")/python3.11" "$0" "$@"
+' '''
+# the above calls the python3.11 interpreter relative to the directory of this script
 # -*- coding: utf-8 -*-
 import re
 import sys

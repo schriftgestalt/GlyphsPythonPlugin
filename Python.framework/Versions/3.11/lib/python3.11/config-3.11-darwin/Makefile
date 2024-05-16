@@ -29,9 +29,9 @@ MODLIBS=           $(LOCALMODLIBS) $(BASEMODLIBS)
 
 # === Variables set by configure
 VERSION=	3.11
-srcdir=		/Users/sysadmin/build/v3.11.6
-VPATH=		/Users/sysadmin/build/v3.11.6
-abs_srcdir=	/Users/sysadmin/build/v3.11.6
+srcdir=		/Users/sysadmin/build/v3.11.9
+VPATH=		/Users/sysadmin/build/v3.11.9
+abs_srcdir=	/Users/sysadmin/build/v3.11.9
 abs_builddir=	/private/tmp/_py/_bld/python
 
 
@@ -74,7 +74,7 @@ INSTALL_DATA=	${INSTALL} -m 644
 # rather than figuring out exactly which, we always give them executable mode.
 INSTALL_SHARED= ${INSTALL} -m 755
 
-MKDIR_P=	/Users/sysadmin/build/v3.11.6/install-sh -c -d
+MKDIR_P=	/Users/sysadmin/build/v3.11.9/install-sh -c -d
 
 MAKESETUP=      $(srcdir)/Modules/makesetup
 
@@ -724,12 +724,15 @@ build_wasm: check-clean-src $(BUILDPYTHON) platform oldsharedmods python-config
 # Check that the source is clean when building out of source.
 check-clean-src:
 	@if test -n "$(VPATH)" -a \( \
-	    -f "$(srcdir)/Programs/python.o" \
-	    -o -f "$(srcdir)\Python/frozen_modules/importlib._bootstrap.h" \
+	    -f "$(srcdir)/$(BUILDPYTHON)" \
+	    -o -f "$(srcdir)/Programs/python.o" \
+	    -o -f "$(srcdir)/Python/frozen_modules/importlib._bootstrap.h" \
 	\); then \
 		echo "Error: The source directory ($(srcdir)) is not clean" ; \
 		echo "Building Python out of the source tree (in $(abs_builddir)) requires a clean source tree ($(abs_srcdir))" ; \
-		echo "Try to run: make -C \"$(srcdir)\" clean" ; \
+		echo "Build artifacts such as .o files, executables, and Python/frozen_modules/*.h must not exist within $(srcdir)." ; \
+		echo "Try to run:" ; \
+		echo "  (cd \"$(srcdir)\" && make clean || git clean -fdx -e Doc/venv)" ; \
 		exit 1; \
 	fi
 
@@ -1433,8 +1436,8 @@ regen-pegen:
 	PYTHONPATH=$(srcdir)/Tools/peg_generator $(PYTHON_FOR_REGEN) -m pegen -q c \
 		$(srcdir)/Grammar/python.gram \
 		$(srcdir)/Grammar/Tokens \
-		-o $(srcdir)/Parser/parser.new.c
-	$(UPDATE_FILE) $(srcdir)/Parser/parser.c $(srcdir)/Parser/parser.new.c
+		-o $(srcdir)/Parser/parser.c.new
+	$(UPDATE_FILE) $(srcdir)/Parser/parser.c $(srcdir)/Parser/parser.c.new
 
 .PHONY=regen-ast
 regen-ast:
@@ -2078,9 +2081,11 @@ TESTSUBDIRS=	ctypes/test \
 		lib2to3/tests/data/fixers/myfixes \
 		test \
 		test/audiodata \
-		test/capath \
+		test/certdata \
+		test/certdata/capath \
 		test/cjkencodings \
 		test/crashers \
+		test/configdata \
 		test/data \
 		test/decimaltestdata \
 		test/dtracedata \
@@ -2088,6 +2093,9 @@ TESTSUBDIRS=	ctypes/test \
 		test/imghdrdata \
 		test/leakers \
 		test/libregrtest \
+		test/regrtestdata \
+		test/regrtestdata/import_from_tests \
+		test/regrtestdata/import_from_tests/test_regrtest_b \
 		test/sndhdrdata \
 		test/subprocessdata \
 		test/support \
@@ -2095,9 +2103,12 @@ TESTSUBDIRS=	ctypes/test \
 		test/test_capi \
 		test/test_cppext \
 		test/test_dataclasses \
+		test/test_doctest \
 		test/test_email \
 		test/test_email/data \
 		test/test_future_stmt \
+		test/test_gdb \
+		test/test_inspect \
 		test/test_import \
 		test/test_import/data \
 		test/test_import/data/circular_imports \
@@ -2151,6 +2162,7 @@ TESTSUBDIRS=	ctypes/test \
 		test/test_json \
 		test/test_module \
 		test/test_peg_generator \
+		test/test_pydoc \
 		test/test_sqlite3 \
 		test/test_tomllib \
 		test/test_tomllib/data \
@@ -2185,7 +2197,11 @@ TESTSUBDIRS=	ctypes/test \
 		tkinter/test/test_tkinter \
 		tkinter/test/test_ttk \
 		unittest/test \
-		unittest/test/testmock
+		unittest/test/testmock \
+		test/test_concurrent_futures \
+		test/test_multiprocessing_fork \
+		test/test_multiprocessing_forkserver \
+		test/test_multiprocessing_spawn
 
 TEST_MODULES=yes
 libinstall:	all $(srcdir)/Modules/xxmodule.c
@@ -2532,7 +2548,9 @@ regen-configure:
 	@if command -v podman >/dev/null; then RUNTIME="podman"; else RUNTIME="docker"; fi; \
 	if ! command -v $$RUNTIME; then echo "$@ needs either Podman or Docker container runtime." >&2; exit 1; fi; \
 	if command -v selinuxenabled >/dev/null && selinuxenabled; then OPT=":Z"; fi; \
-	CMD="$$RUNTIME run --rm --pull=always -v $(abs_srcdir):/src$$OPT quay.io/tiran/cpython_autoconf:269"; \
+	# Manifest corresponds with tag '269' \
+	CPYTHON_AUTOCONF_MANIFEST="sha256:f370fee95eefa3d57b00488bce4911635411fa83e2d293ced8cf8a3674ead939" \
+	CMD="$$RUNTIME run --rm --pull=missing -v $(abs_srcdir):/src$$OPT quay.io/tiran/cpython_autoconf@$$CPYTHON_AUTOCONF_MANIFEST"; \
 	echo $$CMD; \
 	$$CMD || exit $?
 
