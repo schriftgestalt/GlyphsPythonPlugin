@@ -4,7 +4,7 @@
 
 - run `python3 relocatable-python/make_relocatable_python_framework.py --python-version 3.XX.Y --destination . --os-version 11`
 
-- run `Python.framework/Versions/3.11/bin/python3.11 -m pip install pyobjc brotli` (this should install an universal binary)
+- run `./Python.framework/Versions/Current/bin/python3 -m pip install pyobjc brotli` (this should install an universal binary)
 
 - Remove the following files and folders:
 	- All other versions that might be in the `Versions` folder. 
