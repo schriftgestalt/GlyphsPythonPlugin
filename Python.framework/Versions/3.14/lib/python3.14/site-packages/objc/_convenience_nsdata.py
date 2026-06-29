@@ -9,8 +9,8 @@ framework wrappers.
 from objc._convenience import addConvenienceForClass
 from objc._objc import registerMetaDataForSelector
 from ._new import NEW_MAP
-import sys
 import operator
+import sys
 
 registerMetaDataForSelector(
     b"NSData",
@@ -251,6 +251,14 @@ def nsdata_isascii(self, *args, **kwds):
     return bytes(self.bytes()).isascii(*args, **kwds)
 
 
+def nsdata_removeprefix(self, *args, **kwds):
+    return bytes(self.bytes()).removeprefix(*args, **kwds)
+
+
+def nsdata_removesuffix(self, *args, **kwds):
+    return bytes(self.bytes()).removesuffix(*args, **kwds)
+
+
 addConvenienceForClass(
     "NSData",
     (
@@ -302,24 +310,10 @@ addConvenienceForClass(
         ("translate", nsdata_translate),
         ("upper", nsdata_upper),
         ("zfill", nsdata_zfill),
+        ("removeprefix", nsdata_removeprefix),
+        ("removesuffix", nsdata_removesuffix),
     ),
 )
-
-if sys.version_info[:2] >= (3, 9):  # pragma: no branch
-
-    def nsdata_removeprefix(self, *args, **kwds):
-        return bytes(self.bytes()).removeprefix(*args, **kwds)
-
-    def nsdata_removesuffix(self, *args, **kwds):
-        return bytes(self.bytes()).removesuffix(*args, **kwds)
-
-    addConvenienceForClass(
-        "NSData",
-        (
-            ("removeprefix", nsdata_removeprefix),
-            ("removesuffix", nsdata_removesuffix),
-        ),
-    )
 
 
 def nsmutabledata__setitem__(self, item, value):
@@ -429,6 +423,25 @@ def nsmutabledata_resize(self, size):
     elif cursize > size:
         self.replaceBytesInRange_withBytes_length_((size, cursize - size), b"", 0)
 
+
+if sys.version_info[:2] >= (3, 15):  # pragma: no branch
+
+    def nsmutabledata_take_bytes(self, n=None, /):
+        if n is None:
+            result = bytes(self)
+            self.setData_(b"")
+            return result
+        else:
+            if n < 0:
+                n += len(self)
+            if n < 0 or n >= len(self):
+                raise IndexError(n)
+
+            result = bytes(self.bytes()[:n])
+            self.replaceBytesInRange_withBytes_length_((0, n), b"", 0)
+            return result
+
+    addConvenienceForClass("NSMutableData", (("take_bytes", nsmutabledata_take_bytes),))
 
 addConvenienceForClass(
     "NSMutableData",

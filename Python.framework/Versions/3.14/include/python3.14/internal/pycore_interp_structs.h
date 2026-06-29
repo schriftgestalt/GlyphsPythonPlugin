@@ -87,6 +87,9 @@ struct _ceval_runtime_state {
         struct trampoline_api_st trampoline_api;
         FILE *map_file;
         Py_ssize_t persist_after_fork;
+        _PyFrameEvalFunction prev_eval_frame;
+        Py_ssize_t trampoline_refcount;
+        int code_watcher_id;
 #else
         int _not_used;
 #endif
@@ -97,7 +100,7 @@ struct _ceval_runtime_state {
     // For example, we use a preallocated array
     // for the list of pending calls.
     struct _pending_calls pending_mainthread;
-    PyMutex sys_trace_profile_mutex;
+    PyMutex unused_sys_trace_profile_mutex;  // kept for ABI compatibility
 };
 
 
@@ -192,11 +195,6 @@ struct gc_generation_stats {
     Py_ssize_t uncollectable;
 };
 
-enum _GCPhase {
-    GC_PHASE_MARK = 0,
-    GC_PHASE_COLLECT = 1
-};
-
 /* If we change this, we need to change the default value in the
    signature of gc.collect. */
 #define NUM_GENERATIONS 3
@@ -212,8 +210,13 @@ struct _gc_runtime_state {
     int enabled;
     int debug;
     /* linked lists of container objects */
+#ifndef Py_GIL_DISABLED
+    struct gc_generation generations[NUM_GENERATIONS];
+#else
     struct gc_generation young;
     struct gc_generation old[2];
+#endif
+
     /* a permanent generation which won't be collected */
     struct gc_generation permanent_generation;
     struct gc_generation_stats generation_stats[NUM_GENERATIONS];
@@ -224,13 +227,14 @@ struct _gc_runtime_state {
     /* a list of callbacks to be invoked when collection is performed */
     PyObject *callbacks;
 
+    /* The number of live objects. */
     Py_ssize_t heap_size;
-    Py_ssize_t work_to_do;
-    /* Which of the old spaces is the visited space */
-    int visited_space;
-    int phase;
 
-#ifdef Py_GIL_DISABLED
+    /* dummy members to preserve other offsets */
+    Py_ssize_t dummy1; /* was work_to_do */
+    int dummy2; /* was visited_space */
+    int dummy3; /* was phase */
+
     /* This is the number of objects that survived the last full
        collection. It approximates the number of long lived objects
        tracked by the GC.
@@ -243,6 +247,7 @@ struct _gc_runtime_state {
        the first time. */
     Py_ssize_t long_lived_pending;
 
+#ifdef Py_GIL_DISABLED
     /* True if gc.freeze() has been used. */
     int freeze_active;
 
@@ -255,8 +260,27 @@ struct _gc_runtime_state {
 
     /* Mutex held for gc_should_collect_mem_usage(). */
     PyMutex mutex;
+#else
+    PyGC_Head *generation0;
 #endif
 };
+
+#ifndef Py_GIL_DISABLED
+#define GC_GENERATION_INIT \
+    .generations = { \
+        { .threshold = 2000, }, \
+        { .threshold = 10, }, \
+        { .threshold = 10, }, \
+    }, \
+    .heap_size = 0,
+#else
+#define GC_GENERATION_INIT \
+    .young = { .threshold = 2000, }, \
+    .old = { \
+        { .threshold = 10, }, \
+        { .threshold = 10, }, \
+    },
+#endif
 
 #include "pycore_gil.h"           // struct _gil_runtime_state
 
@@ -768,10 +792,7 @@ struct _is {
      * and should be placed at the beginning. */
     struct _ceval_state ceval;
 
-    /* This structure is carefully allocated so that it's correctly aligned
-     * to avoid undefined behaviors during LOAD and STORE. The '_malloced'
-     * field stores the allocated pointer address that will later be freed.
-     */
+    // unused, kept for ABI compatibility
     void *_malloced;
 
     PyInterpreterState *next;
@@ -946,8 +967,8 @@ struct _is {
     PyDict_WatchCallback builtins_dict_watcher;
 
     _Py_GlobalMonitors monitors;
-    bool sys_profile_initialized;
-    bool sys_trace_initialized;
+    _PyOnceFlag sys_profile_once_flag;
+    _PyOnceFlag sys_trace_once_flag;
     Py_ssize_t sys_profiling_threads; /* Count of threads with c_profilefunc set */
     Py_ssize_t sys_tracing_threads; /* Count of threads with c_tracefunc set */
     PyObject *monitoring_callables[PY_MONITORING_TOOL_IDS][_PY_MONITORING_EVENTS];

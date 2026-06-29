@@ -76,6 +76,15 @@ typedef struct _PyThreadStateImpl {
     Py_ssize_t reftotal;  // this thread's total refcount operations
 #endif
 
+    // PyUnstable_ThreadState_ResetStackProtection() values
+    uintptr_t c_stack_init_base;
+    uintptr_t c_stack_init_top;
+
+#ifdef Py_GIL_DISABLED
+    // gh-144438: Add padding to ensure that the fields above don't share a
+    // cache line with other allocations.
+    char __padding[64];
+#endif
 } _PyThreadStateImpl;
 
 #ifdef __cplusplus

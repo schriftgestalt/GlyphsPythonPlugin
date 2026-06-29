@@ -325,17 +325,20 @@ def a85encode(b, *, foldspaces=False, wrapcol=0, pad=False, adobe=False):
 
     foldspaces is an optional flag that uses the special short sequence 'y'
     instead of 4 consecutive spaces (ASCII 0x20) as supported by 'btoa'. This
-    feature is not supported by the "standard" Adobe encoding.
+    feature is not supported by the standard encoding used in PDF.
 
-    wrapcol controls whether the output should have newline (b'\\n') characters
-    added to it. If this is non-zero, each output line will be at most this
-    many characters long, excluding the trailing newline.
+    If wrapcol is non-zero, insert a newline (b'\\n') character after at most
+    every wrapcol characters.
 
-    pad controls whether the input is padded to a multiple of 4 before
-    encoding. Note that the btoa implementation always pads.
+    pad controls whether zero-padding applied to the end of the input
+    is fully retained in the output encoding, as done by btoa,
+    producing an exact multiple of 5 bytes of output.
 
-    adobe controls whether the encoded byte sequence is framed with <~ and ~>,
-    which is used by the Adobe implementation.
+    adobe controls whether the encoded byte sequence is framed with <~
+    and ~>, as in a PostScript base-85 string literal.  Note that
+    while ASCII85Decode streams in PDF documents must be terminated
+    with ~>, they must not use a leading <~.
+
     """
     global _a85chars, _a85chars2
     # Delay the initialization of tables to not waste memory
@@ -364,12 +367,14 @@ def a85encode(b, *, foldspaces=False, wrapcol=0, pad=False, adobe=False):
 def a85decode(b, *, foldspaces=False, adobe=False, ignorechars=b' \t\n\r\v'):
     """Decode the Ascii85 encoded bytes-like object or ASCII string b.
 
-    foldspaces is a flag that specifies whether the 'y' short sequence should be
-    accepted as shorthand for 4 consecutive spaces (ASCII 0x20). This feature is
-    not supported by the "standard" Adobe encoding.
+    foldspaces is a flag that specifies whether the 'y' short sequence
+    should be accepted as shorthand for 4 consecutive spaces (ASCII
+    0x20).  This feature is not supported by the standard Ascii85
+    encoding used in PDF and PostScript.
 
-    adobe controls whether the input sequence is in Adobe Ascii85 format (i.e.
-    is framed with <~ and ~>).
+    adobe controls whether the <~ and ~> markers are present. While
+    the leading <~ is not required, the input must end with ~>, or a
+    ValueError is raised.
 
     ignorechars should be a byte string containing characters to ignore from the
     input. This should only contain whitespace characters, and by default
@@ -442,8 +447,10 @@ _b85dec = None
 def b85encode(b, pad=False):
     """Encode bytes-like object b in base85 format and return a bytes object.
 
-    If pad is true, the input is padded with b'\\0' so its length is a multiple of
-    4 bytes before encoding.
+    The input is padded with b'\0' so its length is a multiple of 4
+    bytes before encoding.  If pad is true, all the resulting
+    characters are retained in the output, which will always be a
+    multiple of 5 bytes.
     """
     global _b85chars, _b85chars2
     # Delay the initialization of tables to not waste memory
@@ -462,9 +469,12 @@ def b85decode(b):
     # Delay the initialization of tables to not waste memory
     # if the function is never called
     if _b85dec is None:
-        _b85dec = [None] * 256
+        # we don't assign to _b85dec directly to avoid issues when
+        # multiple threads call this function simultaneously
+        b85dec_tmp = [None] * 256
         for i, c in enumerate(_b85alphabet):
-            _b85dec[c] = i
+            b85dec_tmp[c] = i
+        _b85dec = b85dec_tmp
 
     b = _bytes_from_decode_data(b)
     padding = (-len(b)) % 5
@@ -601,7 +611,14 @@ def main():
         with open(args[0], 'rb') as f:
             func(f, sys.stdout.buffer)
     else:
-        func(sys.stdin.buffer, sys.stdout.buffer)
+        if sys.stdin.isatty():
+            # gh-138775: read terminal input data all at once to detect EOF
+            import io
+            data = sys.stdin.buffer.read()
+            buffer = io.BytesIO(data)
+        else:
+            buffer = sys.stdin.buffer
+        func(buffer, sys.stdout.buffer)
 
 
 if __name__ == '__main__':

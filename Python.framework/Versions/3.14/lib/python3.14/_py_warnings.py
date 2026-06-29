@@ -589,6 +589,9 @@ class WarningMessage(object):
                     "line : %r}" % (self.message, self._category_name,
                                     self.filename, self.lineno, self.line))
 
+    def __repr__(self):
+        return f'<{type(self).__qualname__} {self}>'
+
 
 class catch_warnings(object):
 
@@ -644,8 +647,8 @@ class catch_warnings(object):
                 context = None
                 self._filters = self._module.filters
                 self._module.filters = self._filters[:]
-                self._showwarning = self._module.showwarning
                 self._showwarnmsg_impl = self._module._showwarnmsg_impl
+            self._showwarning = self._module.showwarning
             self._module._filters_mutated_lock_held()
             if self._record:
                 if _use_context:
@@ -653,9 +656,9 @@ class catch_warnings(object):
                 else:
                     log = []
                     self._module._showwarnmsg_impl = log.append
-                    # Reset showwarning() to the default implementation to make sure
-                    # that _showwarnmsg() calls _showwarnmsg_impl()
-                    self._module.showwarning = self._module._showwarning_orig
+                # Reset showwarning() to the default implementation to make sure
+                # that _showwarnmsg() calls _showwarnmsg_impl()
+                self._module.showwarning = self._module._showwarning_orig
             else:
                 log = None
         if self._filter is not None:
@@ -670,8 +673,8 @@ class catch_warnings(object):
                 self._module._warnings_context.set(self._saved_context)
             else:
                 self._module.filters = self._filters
-                self._module.showwarning = self._showwarning
                 self._module._showwarnmsg_impl = self._showwarnmsg_impl
+            self._module.showwarning = self._showwarning
             self._module._filters_mutated_lock_held()
 
 
@@ -762,27 +765,27 @@ class deprecated:
 
             arg.__new__ = staticmethod(__new__)
 
-            original_init_subclass = arg.__init_subclass__
-            # We need slightly different behavior if __init_subclass__
-            # is a bound method (likely if it was implemented in Python)
-            if isinstance(original_init_subclass, MethodType):
-                original_init_subclass = original_init_subclass.__func__
+            if "__init_subclass__" in arg.__dict__:
+                # __init_subclass__ is directly present on the decorated class.
+                # Synthesize a wrapper that calls this method directly.
+                original_init_subclass = arg.__init_subclass__
+                # We need slightly different behavior if __init_subclass__
+                # is a bound method (likely if it was implemented in Python).
+                # Otherwise, it likely means it's a builtin such as
+                # object's implementation of __init_subclass__.
+                if isinstance(original_init_subclass, MethodType):
+                    original_init_subclass = original_init_subclass.__func__
 
                 @functools.wraps(original_init_subclass)
                 def __init_subclass__(*args, **kwargs):
                     _wm.warn(msg, category=category, stacklevel=stacklevel + 1)
                     return original_init_subclass(*args, **kwargs)
-
-                arg.__init_subclass__ = classmethod(__init_subclass__)
-            # Or otherwise, which likely means it's a builtin such as
-            # object's implementation of __init_subclass__.
             else:
-                @functools.wraps(original_init_subclass)
-                def __init_subclass__(*args, **kwargs):
+                def __init_subclass__(cls, *args, **kwargs):
                     _wm.warn(msg, category=category, stacklevel=stacklevel + 1)
-                    return original_init_subclass(*args, **kwargs)
+                    return super(arg, cls).__init_subclass__(*args, **kwargs)
 
-                arg.__init_subclass__ = __init_subclass__
+            arg.__init_subclass__ = classmethod(__init_subclass__)
 
             arg.__deprecated__ = __new__.__deprecated__ = msg
             __init_subclass__.__deprecated__ = msg

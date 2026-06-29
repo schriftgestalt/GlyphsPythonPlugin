@@ -72,8 +72,8 @@
 //   def _Py_atomic_load_ptr_acquire(obj):
 //       return obj  # acquire
 //
-//   def _Py_atomic_store_ptr_release(obj):
-//       return obj  # release
+//   def _Py_atomic_store_ptr_release(obj, value):
+//       obj = value  # release
 //
 //   def _Py_atomic_fence_seq_cst():
 //       # sequential consistency
@@ -530,6 +530,9 @@ static inline int
 _Py_atomic_load_int_acquire(const int *obj);
 
 static inline void
+_Py_atomic_store_uint_release(unsigned int *obj, unsigned int value);
+
+static inline void
 _Py_atomic_store_uint32_release(uint32_t *obj, uint32_t value);
 
 static inline void
@@ -590,6 +593,17 @@ static inline void _Py_atomic_fence_release(void);
 
 
 // --- aliases ---------------------------------------------------------------
+
+// Compilers don't really support "consume" semantics, so we fake it. Use
+// "acquire" with TSan to support false positives. Use "relaxed" otherwise,
+// because CPUs on all platforms we support respect address dependencies without
+// extra barriers.
+// See 2.6.7 in https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p2055r0.pdf
+#if defined(_Py_THREAD_SANITIZER)
+# define _Py_atomic_load_ptr_consume _Py_atomic_load_ptr_acquire
+#else
+# define _Py_atomic_load_ptr_consume _Py_atomic_load_ptr_relaxed
+#endif
 
 #if SIZEOF_LONG == 8
 # define _Py_atomic_load_ulong(p) \

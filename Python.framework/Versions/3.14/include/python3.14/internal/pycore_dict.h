@@ -30,6 +30,10 @@ PyAPI_FUNC(int) _PyDict_SetItem_KnownHash(PyObject *mp, PyObject *key,
 // Export for '_asyncio' shared extension
 PyAPI_FUNC(int) _PyDict_DelItem_KnownHash(PyObject *mp, PyObject *key,
                                           Py_hash_t hash);
+
+extern int _PyDict_DelItem_KnownHash_LockHeld(PyObject *mp, PyObject *key,
+                                              Py_hash_t hash);
+
 extern int _PyDict_Contains_KnownHash(PyObject *, PyObject *, Py_hash_t);
 
 // "Id" variants
@@ -46,6 +50,8 @@ extern int _PyDict_HasOnlyStringKeys(PyObject *mp);
 
 // Export for '_ctypes' shared extension
 PyAPI_FUNC(Py_ssize_t) _PyDict_SizeOf(PyDictObject *);
+
+extern Py_ssize_t _PyDict_SizeOf_LockHeld(PyDictObject *);
 
 #define _PyDict_HasSplitTable(d) ((d)->ma_values != NULL)
 
@@ -112,6 +118,8 @@ extern void _PyDictKeys_DecRef(PyDictKeysObject *keys);
 extern Py_ssize_t _Py_dict_lookup(PyDictObject *mp, PyObject *key, Py_hash_t hash, PyObject **value_addr);
 extern Py_ssize_t _Py_dict_lookup_threadsafe(PyDictObject *mp, PyObject *key, Py_hash_t hash, PyObject **value_addr);
 extern Py_ssize_t _Py_dict_lookup_threadsafe_stackref(PyDictObject *mp, PyObject *key, Py_hash_t hash, _PyStackRef *value_addr);
+
+extern int _PyDict_GetMethodStackRef(PyDictObject *dict, PyObject *name, _PyStackRef *method);
 
 extern Py_ssize_t _PyDict_LookupIndex(PyDictObject *, PyObject *);
 extern Py_ssize_t _PyDictKeys_StringLookup(PyDictKeysObject* dictkeys, PyObject *key);
@@ -278,7 +286,7 @@ _PyDict_NotifyEvent(PyInterpreterState *interp,
                     PyObject *value)
 {
     assert(Py_REFCNT((PyObject*)mp) > 0);
-    int watcher_bits = mp->_ma_watcher_tag & DICT_WATCHER_MASK;
+    int watcher_bits = FT_ATOMIC_LOAD_UINT64_ACQUIRE(mp->_ma_watcher_tag) & DICT_WATCHER_MASK;
     if (watcher_bits) {
         RARE_EVENT_STAT_INC(watched_dict_modification);
         _PyDict_SendEvent(watcher_bits, event, mp, key, value);
@@ -354,7 +362,7 @@ PyDictObject *_PyObject_MaterializeManagedDict_LockHeld(PyObject *);
 static inline Py_ssize_t
 _PyDict_UniqueId(PyDictObject *mp)
 {
-    return (Py_ssize_t)(mp->_ma_watcher_tag >> DICT_UNIQUE_ID_SHIFT);
+    return (Py_ssize_t)(FT_ATOMIC_LOAD_UINT64_RELAXED(mp->_ma_watcher_tag) >> DICT_UNIQUE_ID_SHIFT);
 }
 
 static inline void

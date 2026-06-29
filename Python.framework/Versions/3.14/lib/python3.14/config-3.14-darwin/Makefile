@@ -127,6 +127,8 @@ PY_CORE_CFLAGS=	$(PY_STDMODULE_CFLAGS) -DPy_BUILD_CORE
 PY_CORE_LDFLAGS=$(PY_LDFLAGS) $(PY_LDFLAGS_NODIST)
 # Strict or non-strict aliasing flags used to compile dtoa.c, see above
 CFLAGS_ALIASING=
+# Compilation flags only for ceval.c.
+CFLAGS_CEVAL=
 
 
 # Machine-dependent subdirectories
@@ -326,7 +328,7 @@ MODULE__HMAC_STATE=yes
 MODULE__HMAC_CFLAGS=-I$(srcdir)/Modules/_hacl -I$(srcdir)/Modules/_hacl/include -D_BSD_SOURCE -D_DEFAULT_SOURCE $(PY_STDMODULE_CFLAGS) $(CCSHARED)
 MODULE__HMAC_LDFLAGS=$(LIBHACL_HMAC_LIB_SHARED)
 MODULE__CTYPES_STATE=yes
-MODULE__CTYPES_CFLAGS=-fno-strict-overflow -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/ffi -DUSING_APPLE_OS_LIBFFI=1 -DUSING_MALLOC_CLOSURE_DOT_C=1
+MODULE__CTYPES_CFLAGS=-fno-strict-overflow -I/Applications/Xcode_26.5.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/ffi -DUSING_APPLE_OS_LIBFFI=1 -DUSING_MALLOC_CLOSURE_DOT_C=1
 MODULE__CTYPES_LDFLAGS=-lffi -ldl
 MODULE__CURSES_STATE=yes
 MODULE__CURSES_CFLAGS=-I/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local/include -D_XOPEN_SOURCE_EXTENDED=1
@@ -389,7 +391,7 @@ MODULE__TESTSINGLEPHASE_STATE=yes
 MODULE_XXSUBTYPE_STATE=yes
 MODULE__XXTESTFUZZ_STATE=yes
 MODULE__CTYPES_TEST_STATE=yes
-MODULE__CTYPES_TEST_CFLAGS=-I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/ffi -DUSING_APPLE_OS_LIBFFI=1 -DUSING_MALLOC_CLOSURE_DOT_C=1
+MODULE__CTYPES_TEST_CFLAGS=-I/Applications/Xcode_26.5.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/ffi -DUSING_APPLE_OS_LIBFFI=1 -DUSING_MALLOC_CLOSURE_DOT_C=1
 MODULE__CTYPES_TEST_LDFLAGS=-lffi -ldl 
 MODULE_XXLIMITED_STATE=yes
 MODULE_XXLIMITED_35_STATE=yes
@@ -408,7 +410,7 @@ EXEMODE=	755
 FILEMODE=	644
 
 # configure script arguments
-CONFIG_ARGS=	 '--enable-framework' '--with-framework-name=Python' '--enable-universalsdk=/' '--with-universal-archs=universal2' '--enable-optimizations' '--with-lto=full' '--with-computed-gotos' '--enable-experimental-jit=yes-off' '--without-ensurepip' '--with-system-libmpdec' '--with-openssl=/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local' 'PYTHON_FOR_REGEN=/usr/local/bin/python3.12' 'CURSES_CFLAGS=-I/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local/include' 'CURSES_LIBS=-L/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local/lib -lncurses' 'PANEL_CFLAGS=-I/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local/include' 'PANEL_LIBS=-L/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local/lib -lpanel' 'LIBLZMA_CFLAGS=-I/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local/include' 'LIBLZMA_LIBS=-L/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local/lib -llzma' 'LIBMPDEC_CFLAGS=-I/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local/include' 'LIBMPDEC_LIBS=-L/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local/lib -lmpdec -lm' 'LIBSQLITE3_CFLAGS=-I/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local/include' 'LIBSQLITE3_LIBS=-L/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local/lib -lsqlite3' 'LIBZSTD_CFLAGS=-I/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local/include' 'LIBZSTD_LIBS=-L/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local/lib -lzstd' 'TCLTK_CFLAGS=-I/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local/include' 'TCLTK_LIBS=-L/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local/lib -ltcl -ltk' 'CC=clang'
+CONFIG_ARGS=	 '--enable-framework' '--with-framework-name=Python' '--enable-universalsdk=/' '--with-universal-archs=universal2' '--enable-optimizations' '--with-lto=full' '--with-computed-gotos' '--enable-experimental-jit=yes-off' '--without-ensurepip' '--with-system-libmpdec' '--with-openssl=/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local' 'PYTHON_FOR_REGEN=/usr/local/bin/python3.13' 'CURSES_CFLAGS=-I/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local/include' 'CURSES_LIBS=-L/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local/lib -lncurses' 'PANEL_CFLAGS=-I/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local/include' 'PANEL_LIBS=-L/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local/lib -lpanel' 'LIBLZMA_CFLAGS=-I/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local/include' 'LIBLZMA_LIBS=-L/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local/lib -llzma' 'LIBMPDEC_CFLAGS=-I/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local/include' 'LIBMPDEC_LIBS=-L/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local/lib -lmpdec -lm' 'LIBSQLITE3_CFLAGS=-I/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local/include' 'LIBSQLITE3_LIBS=-L/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local/lib -lsqlite3' 'LIBZSTD_CFLAGS=-I/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local/include' 'LIBZSTD_LIBS=-L/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local/lib -lzstd' 'TCLTK_CFLAGS=-I/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local/include' 'TCLTK_LIBS=-L/Users/nad/build_macos_installer/installer/variant/binaries/build/libraries/usr/local/lib -ltcl -ltk' 'CC=clang'
 
 
 # Subdirectories with code
@@ -454,7 +456,7 @@ BUILDPYTHON=	python$(BUILDEXE)
 
 HOSTRUNNER= 
 
-PYTHON_FOR_REGEN?=/usr/local/bin/python3.12
+PYTHON_FOR_REGEN?=/usr/local/bin/python3.13
 UPDATE_FILE=$(PYTHON_FOR_REGEN) $(srcdir)/Tools/build/update_file.py
 PYTHON_FOR_BUILD=./$(BUILDPYTHON) -E
 # Single-platform builds depend on $(BUILDPYTHON). Cross builds use an
@@ -471,8 +473,8 @@ FREEZE_MODULE=$(PYTHON_FOR_FREEZE) $(srcdir)/Programs/_freeze_module.py
 FREEZE_MODULE_DEPS=_bootstrap_python $(srcdir)/Programs/_freeze_module.py
 
 _PYTHON_HOST_PLATFORM=
-BUILD_GNU_TYPE=	aarch64-apple-darwin25.0.0
-HOST_GNU_TYPE=	aarch64-apple-darwin25.0.0
+BUILD_GNU_TYPE=	aarch64-apple-darwin25.5.0
+HOST_GNU_TYPE=	aarch64-apple-darwin25.5.0
 
 # The task to run while instrumented when building the profile-opt target.
 # To speed up profile generation, we don't run the full unit test suite
@@ -963,7 +965,7 @@ build_all:	check-clean-src check-app-store-compliance $(BUILDPYTHON) platform sh
 
 .PHONY: build_wasm
 build_wasm: check-clean-src $(BUILDPYTHON) platform sharedmods \
-		python-config checksharedmods
+		python-config checksharedmods build-details.json
 
 .PHONY: build_emscripten
 build_emscripten: build_wasm web_example web_example_pyrepl_jspi
@@ -980,7 +982,7 @@ check-clean-src:
 		echo "Building Python out of the source tree (in $(abs_builddir)) requires a clean source tree ($(abs_srcdir))" ; \
 		echo "Build artifacts such as .o files, executables, and Python/frozen_modules/*.h must not exist within $(srcdir)." ; \
 		echo "Try to run:" ; \
-		echo "  (cd \"$(srcdir)\" && make clean || git clean -fdx -e Doc/venv)" ; \
+		echo "  (cd \"$(srcdir)\" && make distclean || git clean -fdx -e Doc/venv)" ; \
 		exit 1; \
 	fi
 
@@ -996,7 +998,7 @@ check-app-store-compliance:
 
 # Profile generation build must start from a clean tree.
 profile-clean-stamp:
-	$(MAKE) clean
+	$(MAKE) clean-profile
 	touch $@
 
 # Compile with profile generation enabled.
@@ -1219,7 +1221,7 @@ $(PYTHONFRAMEWORKDIR)/Versions/$(VERSION)/$(PYTHONFRAMEWORK): \
 	$(INSTALL) -d -m $(DIRMODE) $(PYTHONFRAMEWORKDIR)/Versions/$(VERSION)
 	$(CC) -o $(LDLIBRARY) $(PY_CORE_LDFLAGS) -dynamiclib \
 		-all_load $(LIBRARY) \
-		-install_name $(DESTDIR)$(PYTHONFRAMEWORKINSTALLNAMEPREFIX)/$(PYTHONFRAMEWORK) \
+		-install_name $(PYTHONFRAMEWORKINSTALLNAMEPREFIX)/$(PYTHONFRAMEWORK) \
 		-compatibility_version $(VERSION) \
 		-current_version $(VERSION) \
 		-framework CoreFoundation $(LIBS);
@@ -1257,7 +1259,7 @@ $(DLLLIBRARY) libpython$(LDVERSION).dll.a: $(LIBRARY_OBJS)
 
 # wasm32-emscripten browser web example
 
-EMSCRIPTEN_DIR=$(srcdir)/Tools/wasm/emscripten
+EMSCRIPTEN_DIR=$(srcdir)/Platforms/emscripten
 WEBEX_DIR=$(EMSCRIPTEN_DIR)/web_example/
 
 ZIP_STDLIB=python$(VERSION)$(ABI_THREAD).zip
@@ -1268,6 +1270,10 @@ $(ZIP_STDLIB): $(srcdir)/Lib/*.py $(srcdir)/Lib/*/*.py \
 	    --buildroot . --prefix $(prefix) -o $@
 
 web_example/index.html: $(WEBEX_DIR)/index.html
+	@mkdir -p web_example
+	@cp $< $@
+
+web_example/python.worker.mjs: $(WEBEX_DIR)/python.worker.mjs
 	@mkdir -p web_example
 	@cp $< $@
 
@@ -1288,7 +1294,7 @@ web_example/python.mjs web_example/python.wasm: $(BUILDPYTHON)
 	cp python.wasm web_example/python.wasm
 
 .PHONY: web_example
-web_example: web_example/python.mjs web_example/index.html web_example/server.py web_example/$(ZIP_STDLIB)
+web_example: web_example/python.mjs web_example/python.worker.mjs web_example/index.html web_example/server.py web_example/$(ZIP_STDLIB)
 
 WEBEX2=web_example_pyrepl_jspi
 WEBEX2_DIR=$(EMSCRIPTEN_DIR)/$(WEBEX2)/
@@ -2388,7 +2394,7 @@ Python/frozen.o: $(FROZEN_FILES_OUT)
 # an include guard, so we can't use a pipeline to transform its output.
 Include/pydtrace_probes.h: $(srcdir)/Include/pydtrace.d
 	$(MKDIR_P) Include
-	CC="$(CC)" CFLAGS="$(CFLAGS)" $(DTRACE) $(DFLAGS) -o $@ -h -s $<
+	CC="$(CC)" CFLAGS="$(CFLAGS)" $(DTRACE) $(DFLAGS) -o $@ -h -s $(srcdir)/Include/pydtrace.d
 	: sed in-place edit with POSIX-only tools
 	sed 's/PYTHON_/PyDTrace_/' $@ > $@.tmp
 	mv $@.tmp $@
@@ -2398,7 +2404,7 @@ Python/gc.o: $(srcdir)/Include/pydtrace.h
 Python/import.o: $(srcdir)/Include/pydtrace.h
 
 Python/pydtrace.o: $(srcdir)/Include/pydtrace.d $(DTRACE_DEPS)
-	CC="$(CC)" CFLAGS="$(CFLAGS)" $(DTRACE) $(DFLAGS) -o $@ -G -s $< $(DTRACE_DEPS)
+	CC="$(CC)" CFLAGS="$(CFLAGS)" $(DTRACE) $(DFLAGS) -o $@ -G -s $(srcdir)/Include/pydtrace.d $(DTRACE_DEPS)
 
 Objects/typeobject.o: Objects/typeslots.inc
 
@@ -3191,6 +3197,9 @@ frameworkinstallunversionedstructure:	$(LDLIBRARY)
 	$(INSTALL) -d -m $(DIRMODE) $(DESTDIR)$(PYTHONFRAMEWORKINSTALLDIR)
 	sed 's/%VERSION%/'"`$(RUNSHARED) $(PYTHON_FOR_BUILD) -c 'import platform; print(platform.python_version())'`"'/g' < $(RESSRCDIR)/Info.plist > $(DESTDIR)$(PYTHONFRAMEWORKINSTALLDIR)/Info.plist
 	$(INSTALL_SHARED) $(LDLIBRARY) $(DESTDIR)$(PYTHONFRAMEWORKPREFIX)/$(LDLIBRARY)
+	$(INSTALL) -d -m $(DIRMODE) $(DESTDIR)$(LIBDIR)
+	$(LN) -fs "../$(LDLIBRARY)" "$(DESTDIR)$(prefix)/lib/libpython$(LDVERSION).dylib"
+	$(LN) -fs "../$(LDLIBRARY)" "$(DESTDIR)$(prefix)/lib/libpython$(VERSION).dylib"
 	$(INSTALL) -d -m $(DIRMODE) $(DESTDIR)$(BINDIR)
 	for file in $(srcdir)/$(RESSRCDIR)/bin/* ; do \
 		$(INSTALL) -m $(EXEMODE) $$file $(DESTDIR)$(BINDIR); \
@@ -3265,10 +3274,10 @@ Python/asm_trampoline.o: $(srcdir)/Python/asm_trampoline.S
 
 Python/emscripten_trampoline_inner.wasm: $(srcdir)/Python/emscripten_trampoline_inner.c
 	# emcc has a path that ends with emsdk/upstream/emscripten/emcc, we're looking for emsdk/upstream/bin/clang.
-	$$(dirname $$(dirname $(CC)))/bin/clang -o $@ $< -mgc -O2 -Wl,--no-entry -Wl,--import-table -Wl,--import-memory -target wasm32-unknown-unknown -nostdlib
+	$$(em-config LLVM_ROOT)/clang -o $@ $< -mgc -O2 -Wl,--no-entry -Wl,--import-table -Wl,--import-memory -target wasm32-unknown-unknown -nostdlib
 
 Python/emscripten_trampoline_wasm.c: Python/emscripten_trampoline_inner.wasm
-	$(PYTHON_FOR_REGEN) $(srcdir)/Tools/wasm/emscripten/prepare_external_wasm.py $< $@ getWasmTrampolineModule
+	$(PYTHON_FOR_REGEN) $(srcdir)/Platforms/emscripten/prepare_external_wasm.py $< $@ getWasmTrampolineModule
 
 JIT_DEPS = \
 		$(srcdir)/Tools/jit/*.c \
@@ -3296,6 +3305,9 @@ regen-jit:
 # https://bugs.llvm.org//show_bug.cgi?id=31928
 Python/dtoa.o: Python/dtoa.c
 	$(CC) -c $(PY_CORE_CFLAGS) $(CFLAGS_ALIASING) -o $@ $<
+
+Python/ceval.o: Python/ceval.c
+	$(CC) -c $(PY_CORE_CFLAGS) $(CFLAGS_CEVAL) -o $@ $<
 
 # Run reindent on the library
 .PHONY: reindent
@@ -3377,7 +3389,6 @@ clean-retain-profile: pycremoval
 	-rm -rf Python/deepfreeze
 	-rm -f Python/frozen_modules/*.h
 	-rm -f Python/frozen_modules/MANIFEST
-	-rm -f jit_stencils.h
 	-find build -type f -a ! -name '*.gc??' -exec rm -f {} ';'
 	-rm -f Include/pydtrace_probes.h
 	-rm -f profile-gen-stamp
@@ -3396,12 +3407,20 @@ profile-removal:
 	rm -f profile-run-stamp
 	rm -f profile-bolt-stamp
 
-.PHONY: clean
-clean: clean-retain-profile clean-bolt
+.PHONY: clean-profile
+clean-profile: clean-retain-profile clean-bolt
 	@if test profile-opt = profile-opt -o profile-opt = bolt-opt; then \
 		rm -f profile-gen-stamp profile-clean-stamp; \
 		$(MAKE) profile-removal; \
 	fi
+
+# gh-141808: The JIT stencils are deliberately kept in clean-profile
+.PHONY: clean-jit-stencils
+clean-jit-stencils:
+	-rm -f jit_stencils*.h
+
+.PHONY: clean
+clean: clean-profile clean-jit-stencils
 
 .PHONY: clobber
 clobber: clean
@@ -3449,6 +3468,11 @@ check-c-globals:
 	$(PYTHON_FOR_REGEN) $(srcdir)/Tools/c-analyzer/check-c-globals.py \
 		--format summary \
 		--traceback
+
+# Check for undocumented C APIs.
+.PHONY: check-c-api-docs
+check-c-api-docs:
+	$(PYTHON_FOR_REGEN) $(srcdir)/Tools/check-c-api-docs/main.py
 
 # Find files with funny names
 .PHONY: funny
@@ -3758,7 +3782,8 @@ Modules/_testcapi/import.o: $(srcdir)/Modules/_testcapi/import.c $(MODULE__TESTC
 Modules/_testcapi/frame.o: $(srcdir)/Modules/_testcapi/frame.c $(MODULE__TESTCAPI_DEPS) $(MODULE_DEPS_SHARED) $(PYTHON_HEADERS); $(CC) $(MODULE__TESTCAPI_CFLAGS) $(PY_STDMODULE_CFLAGS) $(CCSHARED) -c $(srcdir)/Modules/_testcapi/frame.c -o Modules/_testcapi/frame.o
 Modules/_testcapi/type.o: $(srcdir)/Modules/_testcapi/type.c $(MODULE__TESTCAPI_DEPS) $(MODULE_DEPS_SHARED) $(PYTHON_HEADERS); $(CC) $(MODULE__TESTCAPI_CFLAGS) $(PY_STDMODULE_CFLAGS) $(CCSHARED) -c $(srcdir)/Modules/_testcapi/type.c -o Modules/_testcapi/type.o
 Modules/_testcapi/function.o: $(srcdir)/Modules/_testcapi/function.c $(MODULE__TESTCAPI_DEPS) $(MODULE_DEPS_SHARED) $(PYTHON_HEADERS); $(CC) $(MODULE__TESTCAPI_CFLAGS) $(PY_STDMODULE_CFLAGS) $(CCSHARED) -c $(srcdir)/Modules/_testcapi/function.c -o Modules/_testcapi/function.o
-Modules/_testcapi$(EXT_SUFFIX):  Modules/_testcapimodule.o Modules/_testcapi/vectorcall.o Modules/_testcapi/heaptype.o Modules/_testcapi/abstract.o Modules/_testcapi/unicode.o Modules/_testcapi/dict.o Modules/_testcapi/set.o Modules/_testcapi/list.o Modules/_testcapi/tuple.o Modules/_testcapi/getargs.o Modules/_testcapi/datetime.o Modules/_testcapi/docstring.o Modules/_testcapi/mem.o Modules/_testcapi/watchers.o Modules/_testcapi/long.o Modules/_testcapi/float.o Modules/_testcapi/complex.o Modules/_testcapi/numbers.o Modules/_testcapi/structmember.o Modules/_testcapi/exceptions.o Modules/_testcapi/code.o Modules/_testcapi/buffer.o Modules/_testcapi/pyatomic.o Modules/_testcapi/run.o Modules/_testcapi/file.o Modules/_testcapi/codec.o Modules/_testcapi/immortal.o Modules/_testcapi/gc.o Modules/_testcapi/hash.o Modules/_testcapi/time.o Modules/_testcapi/bytes.o Modules/_testcapi/object.o Modules/_testcapi/monitoring.o Modules/_testcapi/config.o Modules/_testcapi/import.o Modules/_testcapi/frame.o Modules/_testcapi/type.o Modules/_testcapi/function.o $(MODULE__TESTCAPI_LDEPS); $(BLDSHARED)  Modules/_testcapimodule.o Modules/_testcapi/vectorcall.o Modules/_testcapi/heaptype.o Modules/_testcapi/abstract.o Modules/_testcapi/unicode.o Modules/_testcapi/dict.o Modules/_testcapi/set.o Modules/_testcapi/list.o Modules/_testcapi/tuple.o Modules/_testcapi/getargs.o Modules/_testcapi/datetime.o Modules/_testcapi/docstring.o Modules/_testcapi/mem.o Modules/_testcapi/watchers.o Modules/_testcapi/long.o Modules/_testcapi/float.o Modules/_testcapi/complex.o Modules/_testcapi/numbers.o Modules/_testcapi/structmember.o Modules/_testcapi/exceptions.o Modules/_testcapi/code.o Modules/_testcapi/buffer.o Modules/_testcapi/pyatomic.o Modules/_testcapi/run.o Modules/_testcapi/file.o Modules/_testcapi/codec.o Modules/_testcapi/immortal.o Modules/_testcapi/gc.o Modules/_testcapi/hash.o Modules/_testcapi/time.o Modules/_testcapi/bytes.o Modules/_testcapi/object.o Modules/_testcapi/monitoring.o Modules/_testcapi/config.o Modules/_testcapi/import.o Modules/_testcapi/frame.o Modules/_testcapi/type.o Modules/_testcapi/function.o $(MODULE__TESTCAPI_LDFLAGS) $(LIBPYTHON) -o Modules/_testcapi$(EXT_SUFFIX)
+Modules/_testcapi/weakref.o: $(srcdir)/Modules/_testcapi/weakref.c $(MODULE__TESTCAPI_DEPS) $(MODULE_DEPS_SHARED) $(PYTHON_HEADERS); $(CC) $(MODULE__TESTCAPI_CFLAGS) $(PY_STDMODULE_CFLAGS) $(CCSHARED) -c $(srcdir)/Modules/_testcapi/weakref.c -o Modules/_testcapi/weakref.o
+Modules/_testcapi$(EXT_SUFFIX):  Modules/_testcapimodule.o Modules/_testcapi/vectorcall.o Modules/_testcapi/heaptype.o Modules/_testcapi/abstract.o Modules/_testcapi/unicode.o Modules/_testcapi/dict.o Modules/_testcapi/set.o Modules/_testcapi/list.o Modules/_testcapi/tuple.o Modules/_testcapi/getargs.o Modules/_testcapi/datetime.o Modules/_testcapi/docstring.o Modules/_testcapi/mem.o Modules/_testcapi/watchers.o Modules/_testcapi/long.o Modules/_testcapi/float.o Modules/_testcapi/complex.o Modules/_testcapi/numbers.o Modules/_testcapi/structmember.o Modules/_testcapi/exceptions.o Modules/_testcapi/code.o Modules/_testcapi/buffer.o Modules/_testcapi/pyatomic.o Modules/_testcapi/run.o Modules/_testcapi/file.o Modules/_testcapi/codec.o Modules/_testcapi/immortal.o Modules/_testcapi/gc.o Modules/_testcapi/hash.o Modules/_testcapi/time.o Modules/_testcapi/bytes.o Modules/_testcapi/object.o Modules/_testcapi/monitoring.o Modules/_testcapi/config.o Modules/_testcapi/import.o Modules/_testcapi/frame.o Modules/_testcapi/type.o Modules/_testcapi/function.o Modules/_testcapi/weakref.o $(MODULE__TESTCAPI_LDEPS); $(BLDSHARED)  Modules/_testcapimodule.o Modules/_testcapi/vectorcall.o Modules/_testcapi/heaptype.o Modules/_testcapi/abstract.o Modules/_testcapi/unicode.o Modules/_testcapi/dict.o Modules/_testcapi/set.o Modules/_testcapi/list.o Modules/_testcapi/tuple.o Modules/_testcapi/getargs.o Modules/_testcapi/datetime.o Modules/_testcapi/docstring.o Modules/_testcapi/mem.o Modules/_testcapi/watchers.o Modules/_testcapi/long.o Modules/_testcapi/float.o Modules/_testcapi/complex.o Modules/_testcapi/numbers.o Modules/_testcapi/structmember.o Modules/_testcapi/exceptions.o Modules/_testcapi/code.o Modules/_testcapi/buffer.o Modules/_testcapi/pyatomic.o Modules/_testcapi/run.o Modules/_testcapi/file.o Modules/_testcapi/codec.o Modules/_testcapi/immortal.o Modules/_testcapi/gc.o Modules/_testcapi/hash.o Modules/_testcapi/time.o Modules/_testcapi/bytes.o Modules/_testcapi/object.o Modules/_testcapi/monitoring.o Modules/_testcapi/config.o Modules/_testcapi/import.o Modules/_testcapi/frame.o Modules/_testcapi/type.o Modules/_testcapi/function.o Modules/_testcapi/weakref.o $(MODULE__TESTCAPI_LDFLAGS) $(LIBPYTHON) -o Modules/_testcapi$(EXT_SUFFIX)
 Modules/_testlimitedcapi.o: $(srcdir)/Modules/_testlimitedcapi.c $(MODULE__TESTLIMITEDCAPI_DEPS) $(MODULE_DEPS_SHARED) $(PYTHON_HEADERS); $(CC) $(MODULE__TESTLIMITEDCAPI_CFLAGS) $(PY_STDMODULE_CFLAGS) $(CCSHARED) -c $(srcdir)/Modules/_testlimitedcapi.c -o Modules/_testlimitedcapi.o
 Modules/_testlimitedcapi/abstract.o: $(srcdir)/Modules/_testlimitedcapi/abstract.c $(MODULE__TESTLIMITEDCAPI_DEPS) $(MODULE_DEPS_SHARED) $(PYTHON_HEADERS); $(CC) $(MODULE__TESTLIMITEDCAPI_CFLAGS) $(PY_STDMODULE_CFLAGS) $(CCSHARED) -c $(srcdir)/Modules/_testlimitedcapi/abstract.c -o Modules/_testlimitedcapi/abstract.o
 Modules/_testlimitedcapi/bytearray.o: $(srcdir)/Modules/_testlimitedcapi/bytearray.c $(MODULE__TESTLIMITEDCAPI_DEPS) $(MODULE_DEPS_SHARED) $(PYTHON_HEADERS); $(CC) $(MODULE__TESTLIMITEDCAPI_CFLAGS) $(PY_STDMODULE_CFLAGS) $(CCSHARED) -c $(srcdir)/Modules/_testlimitedcapi/bytearray.c -o Modules/_testlimitedcapi/bytearray.o
@@ -3781,7 +3806,8 @@ Modules/_testlimitedcapi/unicode.o: $(srcdir)/Modules/_testlimitedcapi/unicode.c
 Modules/_testlimitedcapi/vectorcall_limited.o: $(srcdir)/Modules/_testlimitedcapi/vectorcall_limited.c $(MODULE__TESTLIMITEDCAPI_DEPS) $(MODULE_DEPS_SHARED) $(PYTHON_HEADERS); $(CC) $(MODULE__TESTLIMITEDCAPI_CFLAGS) $(PY_STDMODULE_CFLAGS) $(CCSHARED) -c $(srcdir)/Modules/_testlimitedcapi/vectorcall_limited.c -o Modules/_testlimitedcapi/vectorcall_limited.o
 Modules/_testlimitedcapi/version.o: $(srcdir)/Modules/_testlimitedcapi/version.c $(MODULE__TESTLIMITEDCAPI_DEPS) $(MODULE_DEPS_SHARED) $(PYTHON_HEADERS); $(CC) $(MODULE__TESTLIMITEDCAPI_CFLAGS) $(PY_STDMODULE_CFLAGS) $(CCSHARED) -c $(srcdir)/Modules/_testlimitedcapi/version.c -o Modules/_testlimitedcapi/version.o
 Modules/_testlimitedcapi/file.o: $(srcdir)/Modules/_testlimitedcapi/file.c $(MODULE__TESTLIMITEDCAPI_DEPS) $(MODULE_DEPS_SHARED) $(PYTHON_HEADERS); $(CC) $(MODULE__TESTLIMITEDCAPI_CFLAGS) $(PY_STDMODULE_CFLAGS) $(CCSHARED) -c $(srcdir)/Modules/_testlimitedcapi/file.c -o Modules/_testlimitedcapi/file.o
-Modules/_testlimitedcapi$(EXT_SUFFIX):  Modules/_testlimitedcapi.o Modules/_testlimitedcapi/abstract.o Modules/_testlimitedcapi/bytearray.o Modules/_testlimitedcapi/bytes.o Modules/_testlimitedcapi/codec.o Modules/_testlimitedcapi/complex.o Modules/_testlimitedcapi/dict.o Modules/_testlimitedcapi/eval.o Modules/_testlimitedcapi/float.o Modules/_testlimitedcapi/heaptype_relative.o Modules/_testlimitedcapi/import.o Modules/_testlimitedcapi/list.o Modules/_testlimitedcapi/long.o Modules/_testlimitedcapi/object.o Modules/_testlimitedcapi/pyos.o Modules/_testlimitedcapi/set.o Modules/_testlimitedcapi/sys.o Modules/_testlimitedcapi/tuple.o Modules/_testlimitedcapi/unicode.o Modules/_testlimitedcapi/vectorcall_limited.o Modules/_testlimitedcapi/version.o Modules/_testlimitedcapi/file.o $(MODULE__TESTLIMITEDCAPI_LDEPS); $(BLDSHARED)  Modules/_testlimitedcapi.o Modules/_testlimitedcapi/abstract.o Modules/_testlimitedcapi/bytearray.o Modules/_testlimitedcapi/bytes.o Modules/_testlimitedcapi/codec.o Modules/_testlimitedcapi/complex.o Modules/_testlimitedcapi/dict.o Modules/_testlimitedcapi/eval.o Modules/_testlimitedcapi/float.o Modules/_testlimitedcapi/heaptype_relative.o Modules/_testlimitedcapi/import.o Modules/_testlimitedcapi/list.o Modules/_testlimitedcapi/long.o Modules/_testlimitedcapi/object.o Modules/_testlimitedcapi/pyos.o Modules/_testlimitedcapi/set.o Modules/_testlimitedcapi/sys.o Modules/_testlimitedcapi/tuple.o Modules/_testlimitedcapi/unicode.o Modules/_testlimitedcapi/vectorcall_limited.o Modules/_testlimitedcapi/version.o Modules/_testlimitedcapi/file.o $(MODULE__TESTLIMITEDCAPI_LDFLAGS) $(LIBPYTHON) -o Modules/_testlimitedcapi$(EXT_SUFFIX)
+Modules/_testlimitedcapi/weakref.o: $(srcdir)/Modules/_testlimitedcapi/weakref.c $(MODULE__TESTLIMITEDCAPI_DEPS) $(MODULE_DEPS_SHARED) $(PYTHON_HEADERS); $(CC) $(MODULE__TESTLIMITEDCAPI_CFLAGS) $(PY_STDMODULE_CFLAGS) $(CCSHARED) -c $(srcdir)/Modules/_testlimitedcapi/weakref.c -o Modules/_testlimitedcapi/weakref.o
+Modules/_testlimitedcapi$(EXT_SUFFIX):  Modules/_testlimitedcapi.o Modules/_testlimitedcapi/abstract.o Modules/_testlimitedcapi/bytearray.o Modules/_testlimitedcapi/bytes.o Modules/_testlimitedcapi/codec.o Modules/_testlimitedcapi/complex.o Modules/_testlimitedcapi/dict.o Modules/_testlimitedcapi/eval.o Modules/_testlimitedcapi/float.o Modules/_testlimitedcapi/heaptype_relative.o Modules/_testlimitedcapi/import.o Modules/_testlimitedcapi/list.o Modules/_testlimitedcapi/long.o Modules/_testlimitedcapi/object.o Modules/_testlimitedcapi/pyos.o Modules/_testlimitedcapi/set.o Modules/_testlimitedcapi/sys.o Modules/_testlimitedcapi/tuple.o Modules/_testlimitedcapi/unicode.o Modules/_testlimitedcapi/vectorcall_limited.o Modules/_testlimitedcapi/version.o Modules/_testlimitedcapi/file.o Modules/_testlimitedcapi/weakref.o $(MODULE__TESTLIMITEDCAPI_LDEPS); $(BLDSHARED)  Modules/_testlimitedcapi.o Modules/_testlimitedcapi/abstract.o Modules/_testlimitedcapi/bytearray.o Modules/_testlimitedcapi/bytes.o Modules/_testlimitedcapi/codec.o Modules/_testlimitedcapi/complex.o Modules/_testlimitedcapi/dict.o Modules/_testlimitedcapi/eval.o Modules/_testlimitedcapi/float.o Modules/_testlimitedcapi/heaptype_relative.o Modules/_testlimitedcapi/import.o Modules/_testlimitedcapi/list.o Modules/_testlimitedcapi/long.o Modules/_testlimitedcapi/object.o Modules/_testlimitedcapi/pyos.o Modules/_testlimitedcapi/set.o Modules/_testlimitedcapi/sys.o Modules/_testlimitedcapi/tuple.o Modules/_testlimitedcapi/unicode.o Modules/_testlimitedcapi/vectorcall_limited.o Modules/_testlimitedcapi/version.o Modules/_testlimitedcapi/file.o Modules/_testlimitedcapi/weakref.o $(MODULE__TESTLIMITEDCAPI_LDFLAGS) $(LIBPYTHON) -o Modules/_testlimitedcapi$(EXT_SUFFIX)
 Modules/_testclinic.o: $(srcdir)/Modules/_testclinic.c $(MODULE__TESTCLINIC_DEPS) $(MODULE_DEPS_SHARED) $(PYTHON_HEADERS); $(CC) $(MODULE__TESTCLINIC_CFLAGS) $(PY_STDMODULE_CFLAGS) $(CCSHARED) -c $(srcdir)/Modules/_testclinic.c -o Modules/_testclinic.o
 Modules/_testclinic$(EXT_SUFFIX):  Modules/_testclinic.o $(MODULE__TESTCLINIC_LDEPS); $(BLDSHARED)  Modules/_testclinic.o $(MODULE__TESTCLINIC_LDFLAGS) $(LIBPYTHON) -o Modules/_testclinic$(EXT_SUFFIX)
 Modules/_testclinic_limited.o: $(srcdir)/Modules/_testclinic_limited.c $(MODULE__TESTCLINIC_LIMITED_DEPS) $(MODULE_DEPS_SHARED) $(PYTHON_HEADERS); $(CC) $(MODULE__TESTCLINIC_LIMITED_CFLAGS) $(PY_STDMODULE_CFLAGS) $(CCSHARED) -c $(srcdir)/Modules/_testclinic_limited.c -o Modules/_testclinic_limited.o

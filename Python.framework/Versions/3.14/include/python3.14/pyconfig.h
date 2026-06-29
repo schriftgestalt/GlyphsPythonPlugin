@@ -2024,8 +2024,8 @@
 /* HACL* library can compile SIMD256 implementations */
 #define _Py_HACL_CAN_COMPILE_VEC256 1
 
-/* Define if year with century should be normalized for strftime. */
-/* #undef _Py_NORMALIZE_CENTURY */
+/* Define to 1 if the machine stack grows down (default); 0 if it grows up. */
+#define _Py_STACK_GROWS_DOWN 1
 
 /* Define to force use of thread-safe errno, h_errno, and other functions */
 #define _REENTRANT 1

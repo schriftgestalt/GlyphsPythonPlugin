@@ -142,15 +142,25 @@ class ForkServer(object):
                 self._forkserver_alive_fd = None
                 self._forkserver_pid = None
 
-            cmd = ('from multiprocessing.forkserver import main; ' +
-                   'main(%d, %d, %r, **%r)')
+            # gh-144503: sys_argv is passed as real argv elements after the
+            # ``-c cmd`` rather than repr'd into main_kws so that a large
+            # parent sys.argv cannot push the single ``-c`` command string
+            # over the OS per-argument length limit (MAX_ARG_STRLEN on Linux).
+            # The child sees them as sys.argv[1:].
+            cmd = ('import sys; '
+                   'from multiprocessing.forkserver import main; '
+                   'main(%d, %d, %r, sys_argv=sys.argv[1:], **%r)')
 
+            main_kws = {}
+            sys_argv = None
             if self._preload_modules:
-                desired_keys = {'main_path', 'sys_path'}
                 data = spawn.get_preparation_data('ignore')
-                main_kws = {x: y for x, y in data.items() if x in desired_keys}
-            else:
-                main_kws = {}
+                if 'sys_path' in data:
+                    main_kws['sys_path'] = data['sys_path']
+                if 'init_main_from_path' in data:
+                    main_kws['main_path'] = data['init_main_from_path']
+                if 'sys_argv' in data:
+                    sys_argv = data['sys_argv']
 
             with socket.socket(socket.AF_UNIX) as listener:
                 address = connection.arbitrary_address('AF_UNIX')
@@ -172,6 +182,8 @@ class ForkServer(object):
                     exe = spawn.get_executable()
                     args = [exe] + util._args_from_interpreter_flags()
                     args += ['-c', cmd]
+                    if sys_argv is not None:
+                        args += sys_argv
                     pid = util.spawnv_passfds(exe, args, fds_to_pass)
                 except:
                     os.close(alive_w)
@@ -196,7 +208,7 @@ class ForkServer(object):
 #
 
 def main(listener_fd, alive_r, preload, main_path=None, sys_path=None,
-         *, authkey_r=None):
+         *, sys_argv=None, authkey_r=None):
     """Run forkserver."""
     if authkey_r is not None:
         try:
@@ -208,6 +220,8 @@ def main(listener_fd, alive_r, preload, main_path=None, sys_path=None,
         authkey = b''
 
     if preload:
+        if sys_argv is not None:
+            sys.argv[:] = sys_argv
         if sys_path is not None:
             sys.path[:] = sys_path
         if '__main__' in preload and main_path is not None:
